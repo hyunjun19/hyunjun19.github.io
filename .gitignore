@@ -58,3 +58,8 @@ yarn.lock
 # dotenv environment variables file
 .env
 
+# macOS
+.DS_Store
+
+# hexo-deployer-git
+.deploy_git
