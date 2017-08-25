@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: jun
+title: 개발새발
 subtitle:
 description:
 author: HJ.Park
-language:
-timezone:
+language: ko
+timezone: Asia/Seoul
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
