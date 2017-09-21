@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>server-network-perf | 개발새발</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="서버 네트워크 속도(대역폭) 측정하기 AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다. 어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록">
+<meta property="og:type" content="article">
+<meta property="og:title" content="server-network-perf">
+<meta property="og:url" content="https://hyunjun19.github.io/2017/09/21/server-network-perf/index.html">
+<meta property="og:site_name" content="개발새발">
+<meta property="og:description" content="서버 네트워크 속도(대역폭) 측정하기 AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다. 어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://hyunjun19.github.io/2017/09/21/server-network-perf/highway-393492_1920.jpg">
+<meta property="og:updated_time" content="2017-09-21T00:54:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="server-network-perf">
+<meta name="twitter:description" content="서버 네트워크 속도(대역폭) 측정하기 AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다. 어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록">
+<meta name="twitter:image" content="https://hyunjun19.github.io/2017/09/21/server-network-perf/highway-393492_1920.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="개발새발" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">개발새발</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hyunjun19.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-server-network-perf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/21/server-network-perf/" class="article-date">
+  <time datetime="2017-09-21T00:30:48.000Z" itemprop="datePublished">2017-09-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      server-network-perf
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="서버-네트워크-속도-대역폭-측정하기"><a href="#서버-네트워크-속도-대역폭-측정하기" class="headerlink" title="서버 네트워크 속도(대역폭) 측정하기"></a>서버 네트워크 속도(대역폭) 측정하기</h1><img src="/2017/09/21/server-network-perf/highway-393492_1920.jpg" alt="우리는 항상 빠른 속도를 원한다." title="우리는 항상 빠른 속도를 원한다.">
+<p>AWS는 <a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="external">EC2 인스턴스 타입</a>별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.<br>아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.</p>
+<p>어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록 하겠습니다.<br>측정 도구로는 <a href="https://iperf.fr/" target="_blank" rel="external">iperf</a>를 사용하도록 하겠습니다.</p>
+<h2 id="준비물"><a href="#준비물" class="headerlink" title="준비물"></a>준비물</h2><ol>
+<li>클라이언트 PC 1대(간단하게 그냥 Macbook Pro와 일반 가정용 인터넷을 사용했습니다.)</li>
+<li>서버(AWS EC2 t2.medium) 1대</li>
+</ol>
+<h2 id="iperf-설치하기"><a href="#iperf-설치하기" class="headerlink" title="iperf 설치하기"></a>iperf 설치하기</h2><ol>
+<li>클라이언트<ol>
+<li><code>$ brew install iperf</code></li>
+</ol>
+</li>
+<li>서버<ol>
+<li><code>$ sudo yum install iperf</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="iperf-테스트하기"><a href="#iperf-테스트하기" class="headerlink" title="iperf 테스트하기"></a>iperf 테스트하기</h2><ol>
+<li>서버<ol>
+<li><code>$ iperf -s</code></li>
+<li>옵션설명<ul>
+<li>-s: iperf가 서버모드로 실행됩니다.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>클라이언트<ol>
+<li><code>$ iperf -c ${SERVER_IP} -i 1 -t 10</code></li>
+<li>옵션설명<ul>
+<li>-c: 클라이언트 모드로 실행</li>
+<li>${SERVER_IP}: 테스트할 서버의 IP</li>
+<li>-i 1: 반복 시간 간격(초단위)</li>
+<li>-t: 테스트할 시간(초단위)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="서버로그"><a href="#서버로그" class="headerlink" title="서버로그"></a>서버로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ iperf -s</div><div class="line">------------------------------------------------------------</div><div class="line">Server listening on TCP port 5001</div><div class="line">TCP window size: 85.3 KByte (default)</div><div class="line">------------------------------------------------------------</div><div class="line">[  4] local 172.31.25.62 port 5001 connected with 115.140.62.214 port 56015</div><div class="line">[ ID] Interval       Transfer     Bandwidth</div><div class="line">[  4]  0.0-10.1 sec  29.3 MBytes  24.2 Mbits/sec</div></pre></td></tr></table></figure>
+<h3 id="클라이언트-로그"><a href="#클라이언트-로그" class="headerlink" title="클라이언트 로그"></a>클라이언트 로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ iperf -c ###.###.###.### -i 1 -t 10</div><div class="line">------------------------------------------------------------</div><div class="line">Client connecting to ###.###.###.###, TCP port 5001</div><div class="line">TCP window size:  129 KByte (default)</div><div class="line">------------------------------------------------------------</div><div class="line">[  4] local 192.168.219.121 port 61977 connected with ###.###.###.### port 5001</div><div class="line">[ ID] Interval       Transfer     Bandwidth</div><div class="line">[  4]  0.0- 1.0 sec  4.00 MBytes  33.6 Mbits/sec</div><div class="line">[  4]  1.0- 2.0 sec  3.38 MBytes  28.3 Mbits/sec</div><div class="line">[  4]  2.0- 3.0 sec  3.38 MBytes  28.3 Mbits/sec</div><div class="line">[  4]  3.0- 4.0 sec  3.50 MBytes  29.4 Mbits/sec</div><div class="line">[  4]  4.0- 5.0 sec  2.38 MBytes  19.9 Mbits/sec</div><div class="line">[  4]  5.0- 6.0 sec  4.12 MBytes  34.6 Mbits/sec</div><div class="line">[  4]  6.0- 7.0 sec  3.88 MBytes  32.5 Mbits/sec</div><div class="line">[  4]  7.0- 8.0 sec  4.12 MBytes  34.6 Mbits/sec</div><div class="line">[  4]  8.0- 9.0 sec  3.75 MBytes  31.5 Mbits/sec</div><div class="line">[  4]  9.0-10.0 sec  4.50 MBytes  37.7 Mbits/sec</div><div class="line">[  4]  0.0-10.0 sec  37.1 MBytes  31.1 Mbits/sec</div></pre></td></tr></table></figure>
+<h2 id="테스트-결과-읽기"><a href="#테스트-결과-읽기" class="headerlink" title="테스트 결과 읽기"></a>테스트 결과 읽기</h2><ol>
+<li><code>Interval</code>: 호출한 시간 간격</li>
+<li><code>Transfer</code>: 전송한 데이터 사이즈</li>
+<li><code>Bandwidth</code>: 측정된 대역폭(주의: 단위가 Mbits 임. Mbits / 8 === MB)</li>
+</ol>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><p><a href="https://iperf.fr/" target="_blank" rel="external">https://iperf.fr/</a><br><a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="external">https://aws.amazon.com/ko/ec2/instance-types/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hyunjun19.github.io/2017/09/21/server-network-perf/" data-id="cj7tqxm7e00006syodf7aztij" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/24/ts-ios-wifi-webkit-error/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ts-ios-wifi-webkit-error</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">9월 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">8월 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/09/21/server-network-perf/">server-network-perf</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/24/ts-ios-wifi-webkit-error/">ts-ios-wifi-webkit-error</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/24/ts-spring-session-oome/">ts-spring-session-oome</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 HJ.Park<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -79,4 +79,4 @@ theme: landscape
 deploy:
   type: git
   repo: https://github.com/hyunjun19/hyunjun19.github.io
-  branch: publish
+  branch: master
