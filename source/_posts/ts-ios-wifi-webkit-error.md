@@ -8,7 +8,7 @@ tags:
 
 ## 증상
 1. iOS 사파리에서 [가자고](https://www.thegajago.com) 사이트를 열면 ``오류: WebKit에 내부 오류 발생``이라고 보여진다.
-  - <img src="./webkit-error.png" style="height:200px;" />
+  - {% asset_img 'webkit-error.png' '우리는 항상 빠른 속도를 원한다.' %}
 2. 사이트의 반응이 매우 느리며 불특정 페이지에서 발생한다.
 3. WiFi 연결일때만 발생하며 LTE 연결인 경우 오류가 발생하지 않는다.
 4. iOS 10.2 버전 업데이트 이후부터 발생된다.
