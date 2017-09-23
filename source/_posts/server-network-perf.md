@@ -10,6 +10,7 @@ tags:
 
 AWS는 [EC2 인스턴스 타입](https://aws.amazon.com/ko/ec2/instance-types/)별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.
 아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.
+__***[2017-09-23] 정정합니다. [AWS ec2 인스턴스 구성](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html)을 보면 대역폭이 나와있습니다. 하지만 T2 인스턴스는 해당 표에 없습니다.***__
 
 어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록 하겠습니다.
 측정 도구로는 [iperf](https://iperf.fr/)를 사용하도록 하겠습니다.
@@ -77,5 +78,6 @@ TCP window size:  129 KByte (default)
 1. ``Bandwidth``: 측정된 대역폭(주의: 단위가 Mbits 임. Mbits / 8 === MB)
 
 ## 관련자료
-https://iperf.fr/
-https://aws.amazon.com/ko/ec2/instance-types/
+[iperf](https://iperf.fr/)
+[AWS ec2 인스턴스 타입](https://aws.amazon.com/ko/ec2/instance-types/)
+[AWS ec2 인스턴스 구성](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html)
