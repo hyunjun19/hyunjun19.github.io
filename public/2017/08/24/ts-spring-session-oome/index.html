@@ -1,101 +1,174 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<!-- Head tag -->
 <head>
-  <meta charset="utf-8">
-  
-  <title>ts-spring-session-oome | 개발새발</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[Trouble Shooting] spring-session OOME증상 2번 서버가 OutOfMemoryError로 갑자기 죽어버렸음 KT 로드밸런서가 2번 서버로 계속 요청을 보냄 사용자의 요청이 1번 서버로만 간 경우 정상적으로 서비스를 이용 사용자의 요청이 2번으로 하나라도 가면 API의 응답을 받지 못함  12345678910111213141516">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ts-spring-session-oome">
-<meta property="og:url" content="https://hyunjun19.github.io/2017/08/24/ts-spring-session-oome/index.html">
-<meta property="og:site_name" content="개발새발">
-<meta property="og:description" content="[Trouble Shooting] spring-session OOME증상 2번 서버가 OutOfMemoryError로 갑자기 죽어버렸음 KT 로드밸런서가 2번 서버로 계속 요청을 보냄 사용자의 요청이 1번 서버로만 간 경우 정상적으로 서비스를 이용 사용자의 요청이 2번으로 하나라도 가면 API의 응답을 받지 못함  12345678910111213141516">
-<meta property="og:locale" content="ko">
-<meta property="og:updated_time" content="2017-09-21T00:54:55.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ts-spring-session-oome">
-<meta name="twitter:description" content="[Trouble Shooting] spring-session OOME증상 2번 서버가 OutOfMemoryError로 갑자기 죽어버렸음 KT 로드밸런서가 2번 서버로 계속 요청을 보냄 사용자의 요청이 1번 서버로만 간 경우 정상적으로 서비스를 이용 사용자의 요청이 2번으로 하나라도 가면 API의 응답을 받지 못함  12345678910111213141516">
-  
-    <link rel="alternate" href="/atom.xml" title="개발새발" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="[Trouble Shooting] spring-session OOME증상
+2번 서버가 OutOfMemoryError로 갑자기 죽어버렸음
+KT 로드밸런서가 2번 서버로 계속 요청을 보냄
+사용자의 요청이 1번 서버로만 간 경우 정상적으로 서비스를 이용
+사용자의 요청이 2번">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="HJ.Park">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ts-spring-session-oome"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="개발새발"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>ts-spring-session-oome - 개발새발</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
 
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">개발새발</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hyunjun19.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-ts-spring-session-oome" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/24/ts-spring-session-oome/" class="article-date">
-  <time datetime="2017-08-24T07:20:28.000Z" itemprop="datePublished">2017-08-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      ts-spring-session-oome
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/08/24/ts-spring-session-oome/">
+                ts-spring-session-oome
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-24</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Kommentare</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
         <h1 id="Trouble-Shooting-spring-session-OOME"><a href="#Trouble-Shooting-spring-session-OOME" class="headerlink" title="[Trouble Shooting] spring-session OOME"></a>[Trouble Shooting] spring-session OOME</h1><h2 id="증상"><a href="#증상" class="headerlink" title="증상"></a>증상</h2><ol>
 <li>2번 서버가 OutOfMemoryError로 갑자기 죽어버렸음</li>
 <li>KT 로드밸런서가 2번 서버로 계속 요청을 보냄</li>
 <li>사용자의 요청이 1번 서버로만 간 경우 정상적으로 서비스를 이용</li>
 <li>사용자의 요청이 2번으로 하나라도 가면 API의 응답을 받지 못함</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">2017-08-04 19:40:51 [gajago-front] [redisMessageListenerContainer-1] ERROR org.springframework.data.redis.listener.RedisMessageListenerContainer:handleSubscriptionException:648 - SubscriptionTask aborted with exception:</div><div class="line">java.lang.OutOfMemoryError: unable to create new native thread</div><div class="line">        at java.lang.Thread.start0(Native Method)</div><div class="line">        at java.lang.Thread.start(Thread.java:714)</div><div class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.doExecute(SimpleAsyncTaskExecutor.java:213)</div><div class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.execute(SimpleAsyncTaskExecutor.java:171)</div><div class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.execute(SimpleAsyncTaskExecutor.java:151)</div><div class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer.dispatchMessage(RedisMessageListenerContainer.java:958)</div><div class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer.access$1400(RedisMessageListenerContainer.java:71)</div><div class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$DispatchMessageListener.onMessage(RedisMessageListenerContainer.java:949)</div><div class="line">        at org.springframework.data.redis.connection.jedis.JedisMessageListener.onPMessage(JedisMessageListener.java:43)</div><div class="line">        at redis.clients.jedis.BinaryJedisPubSub.process(BinaryJedisPubSub.java:109)</div><div class="line">        at redis.clients.jedis.BinaryJedisPubSub.proceedWithPatterns(BinaryJedisPubSub.java:75)</div><div class="line">        at redis.clients.jedis.BinaryJedis.psubscribe(BinaryJedis.java:2953)</div><div class="line">        at org.springframework.data.redis.connection.jedis.JedisConnection.pSubscribe(JedisConnection.java:2959)</div><div class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$SubscriptionTask.eventuallyPerformSubscription(RedisMessageListenerContainer.java:773)</div><div class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$SubscriptionTask.run(RedisMessageListenerContainer.java:740)</div><div class="line">        at java.lang.Thread.run(Thread.java:745)</div><div class="line">Exception in thread &quot;http-apr-10090-Acceptor-0&quot; java.lang.OutOfMemoryError: unable to create new native thread</div><div class="line">        at java.lang.Thread.start0(Native Method)</div><div class="line">        at java.lang.Thread.start(Thread.java:714)</div><div class="line">        at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:950)</div><div class="line">        at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1368)</div><div class="line">        at org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:161)</div><div class="line">        at org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:141)</div><div class="line">        at org.apache.catalina.core.StandardThreadExecutor.execute(StandardThreadExecutor.java:169)</div><div class="line">        at org.apache.tomcat.util.net.AprEndpoint.processSocketWithOptions(AprEndpoint.java:909)</div><div class="line">        at org.apache.tomcat.util.net.AprEndpoint$Acceptor.run(AprEndpoint.java:1086)</div><div class="line">        at java.lang.Thread.run(Thread.java:745)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2017-08-04 19:40:51 [gajago-front] [redisMessageListenerContainer-1] ERROR org.springframework.data.redis.listener.RedisMessageListenerContainer:handleSubscriptionException:648 - SubscriptionTask aborted with exception:</span><br><span class="line">java.lang.OutOfMemoryError: unable to create new native thread</span><br><span class="line">        at java.lang.Thread.start0(Native Method)</span><br><span class="line">        at java.lang.Thread.start(Thread.java:714)</span><br><span class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.doExecute(SimpleAsyncTaskExecutor.java:213)</span><br><span class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.execute(SimpleAsyncTaskExecutor.java:171)</span><br><span class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.execute(SimpleAsyncTaskExecutor.java:151)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer.dispatchMessage(RedisMessageListenerContainer.java:958)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer.access$1400(RedisMessageListenerContainer.java:71)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$DispatchMessageListener.onMessage(RedisMessageListenerContainer.java:949)</span><br><span class="line">        at org.springframework.data.redis.connection.jedis.JedisMessageListener.onPMessage(JedisMessageListener.java:43)</span><br><span class="line">        at redis.clients.jedis.BinaryJedisPubSub.process(BinaryJedisPubSub.java:109)</span><br><span class="line">        at redis.clients.jedis.BinaryJedisPubSub.proceedWithPatterns(BinaryJedisPubSub.java:75)</span><br><span class="line">        at redis.clients.jedis.BinaryJedis.psubscribe(BinaryJedis.java:2953)</span><br><span class="line">        at org.springframework.data.redis.connection.jedis.JedisConnection.pSubscribe(JedisConnection.java:2959)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$SubscriptionTask.eventuallyPerformSubscription(RedisMessageListenerContainer.java:773)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$SubscriptionTask.run(RedisMessageListenerContainer.java:740)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:745)</span><br><span class="line">Exception in thread &quot;http-apr-10090-Acceptor-0&quot; java.lang.OutOfMemoryError: unable to create new native thread</span><br><span class="line">        at java.lang.Thread.start0(Native Method)</span><br><span class="line">        at java.lang.Thread.start(Thread.java:714)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:950)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1368)</span><br><span class="line">        at org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:161)</span><br><span class="line">        at org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:141)</span><br><span class="line">        at org.apache.catalina.core.StandardThreadExecutor.execute(StandardThreadExecutor.java:169)</span><br><span class="line">        at org.apache.tomcat.util.net.AprEndpoint.processSocketWithOptions(AprEndpoint.java:909)</span><br><span class="line">        at org.apache.tomcat.util.net.AprEndpoint$Acceptor.run(AprEndpoint.java:1086)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:745)</span><br></pre></td></tr></table></figure>
 <h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><ol>
-<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="external">spring-session</a>에서 [spring-data-redis]를 사용할 때 <a href="https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/listener/RedisMessageListenerContainer.java#L97" target="_blank" rel="external">RedisMessageListenerContainer의 taskExecutor</a>에 별도의 값을 설정하지 않아서 <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java" target="_blank" rel="external">SimpleAsyncTaskExecutor</a>를 사용하고 있음</li>
-<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html" target="_blank" rel="external">SimpleAsyncTaskExecutor 문서</a>에서 이 클래스는 쓰레드를 재사용하지 않으니 실행시간이 짧은 많은 수의 작업에는 사용하지 말라고 권장하고 있음<ul>
+<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="noopener">spring-session</a>에서 [spring-data-redis]를 사용할 때 <a href="https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/listener/RedisMessageListenerContainer.java#L97" target="_blank" rel="noopener">RedisMessageListenerContainer의 taskExecutor</a>에 별도의 값을 설정하지 않아서 <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java" target="_blank" rel="noopener">SimpleAsyncTaskExecutor</a>를 사용하고 있음</li>
+<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html" target="_blank" rel="noopener">SimpleAsyncTaskExecutor 문서</a>에서 이 클래스는 쓰레드를 재사용하지 않으니 실행시간이 짧은 많은 수의 작업에는 사용하지 말라고 권장하고 있음<ul>
 <li><code>NOTE: This implementation does not reuse threads! Consider a thread-pooling TaskExecutor implementation instead, in particular for executing a large number of short-lived tasks.</code></li>
 </ul>
 </li>
@@ -106,134 +179,175 @@
 <li>SimpleAsyncTaskExecutor 대신에 ThreadPool을 사용할 수 있도록 지정한다</li>
 <li>하지만 지금 사용중인 <code>spring-session-1.0.2.RELEASE</code> 버전에서는 taskExecutor를 별도로 지정할 수 있는 방법이 없음</li>
 <li>결국 <code>spring-session-1.3.1.RELEASE</code> 버전으로 업데이트</li>
-<li><a href="https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92" target="_blank" rel="external">패치된 내용</a>을 바탕으로 <code>springSessionRedisTaskExecutor</code>를 지정</li>
+<li><a href="https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92" target="_blank" rel="noopener">패치된 내용</a>을 바탕으로 <code>springSessionRedisTaskExecutor</code>를 지정</li>
 <li><code>springSessionRedisTaskExecutor</code>를 지정하면 일어나는 일<ol>
-<li><code>springSessionRedisTaskExecutor</code>를 지정하면 <code>RedisHttpSessionConfiguration.redisTaskExecutor</code>에 지정한 <code>springSessionRedisTaskExecutor</code>가 할당 됨 <a href="https://github.com/spring-projects/spring-session/blob/master/spring-session-data-redis/src/main/java/org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.java#L203" target="_blank" rel="external">소스코드</a></li>
-<li><code>RedisMessageListenerContainer.taskExecutor</code>에 <code>RedisHttpSessionConfiguration.redisTaskExecutor</code>가 할당 됨 <a href="https://github.com/spring-projects/spring-session/blob/master/spring-session-data-redis/src/main/java/org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.java#L93" target="_blank" rel="external">소스코드</a></li>
-<li>spring-session에서 redis를 사용할 때 <code>springSessionRedisTaskExecutor</code>를 사용하게 됨 <a href="https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/listener/RedisMessageListenerContainer.java#L961" target="_blank" rel="external">소스코드</a></li>
+<li><code>springSessionRedisTaskExecutor</code>를 지정하면 <code>RedisHttpSessionConfiguration.redisTaskExecutor</code>에 지정한 <code>springSessionRedisTaskExecutor</code>가 할당 됨 <a href="https://github.com/spring-projects/spring-session/blob/master/spring-session-data-redis/src/main/java/org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.java#L203" target="_blank" rel="noopener">소스코드</a></li>
+<li><code>RedisMessageListenerContainer.taskExecutor</code>에 <code>RedisHttpSessionConfiguration.redisTaskExecutor</code>가 할당 됨 <a href="https://github.com/spring-projects/spring-session/blob/master/spring-session-data-redis/src/main/java/org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.java#L93" target="_blank" rel="noopener">소스코드</a></li>
+<li>spring-session에서 redis를 사용할 때 <code>springSessionRedisTaskExecutor</code>를 사용하게 됨 <a href="https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/listener/RedisMessageListenerContainer.java#L961" target="_blank" rel="noopener">소스코드</a></li>
 </ol>
 </li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FrontSessionConfig</span> </span>&#123;</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Executor <span class="title">springSessionRedisTaskExecutor</span><span class="params">()</span> </span>&#123;</div><div class="line">        ThreadFactory threadFactory = <span class="keyword">new</span> ThreadFactory() &#123;</div><div class="line">            <span class="keyword">private</span> <span class="keyword">int</span> threadCount = <span class="number">0</span>;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> Thread <span class="title">newThread</span><span class="params">(Runnable runnable)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Thread(runnable, String.format(<span class="string">"gajago-session-redis-%d"</span>, ++threadCount));</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> Executors.newCachedThreadPool(threadFactory);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FrontSessionConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Executor <span class="title">springSessionRedisTaskExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ThreadFactory threadFactory = <span class="keyword">new</span> ThreadFactory() &#123;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">int</span> threadCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Thread <span class="title">newThread</span><span class="params">(Runnable runnable)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Thread(runnable, String.format(<span class="string">"gajago-session-redis-%d"</span>, ++threadCount));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Executors.newCachedThreadPool(threadFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="남아있는-과제"><a href="#남아있는-과제" class="headerlink" title="남아있는 과제"></a>남아있는 과제</h2><ol>
 <li>왜 1번 서버는 안 죽고 2번 서버만 죽었을까?</li>
 <li>KT 로드밸런서가 왜 2번 서버로 계속 요청을 보냈을까?</li>
 <li>캐시로 사용하고 있는 redis의 taskExecutor는?</li>
 </ol>
 <h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><ul>
-<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="external">https://github.com/spring-projects/spring-session</a></li>
-<li><a href="https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92" target="_blank" rel="external">https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92</a></li>
-<li><a href="https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java" target="_blank" rel="external">https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java</a></li>
-<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html" target="_blank" rel="external">https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html</a></li>
+<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="noopener">https://github.com/spring-projects/spring-session</a></li>
+<li><a href="https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92" target="_blank" rel="noopener">https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java" target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java</a></li>
+<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html</a></li>
 </ul>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="https://hyunjun19.github.io/2017/08/24/ts-spring-session-oome/" data-id="cj7woctq80003hcyobxvd5pcq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+
     
-<nav id="article-nav">
-  
-    <a href="/2017/08/24/ts-ios-wifi-webkit-error/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
         
-          ts-ios-wifi-webkit-error
-        
-      </div>
-    </a>
-  
-  
-</nav>
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
 
-  
-</article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">9월 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">8월 2017</a></li></ul>
     </div>
-  </div>
-
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/21/server-network-perf/">server-network-perf</a>
-          </li>
-        
-          <li>
-            <a href="/2017/08/24/ts-ios-wifi-webkit-error/">ts-ios-wifi-webkit-error</a>
-          </li>
-        
-          <li>
-            <a href="/2017/08/24/ts-spring-session-oome/">ts-spring-session-oome</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 HJ.Park<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+</div>
+        </section>
+
     </div>
-  </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/21/server-network-perf/">server-network-perf</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/08/24/ts-ios-wifi-webkit-error/">ts-ios-wifi-webkit-error</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/08/24/ts-spring-session-oome/">ts-spring-session-oome</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/hyunjun19">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:hyunjun19@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'hyunjun19-blog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
-
-<script src="/js/script.js"></script>
-
-  </div>
 </body>
+
 </html>
