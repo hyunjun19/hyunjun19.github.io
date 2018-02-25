@@ -4,6 +4,17 @@ date: 2018-02-19 21:13:39
 tags:
 ---
 
+
+---
+이 글은 [RisingStack](https://blog.risingstack.com)의 Node.js at scale 시리즈 중에서 [Node.js Garbage Collection Explained](https://blog.risingstack.com/node-js-at-scale-node-js-garbage-collection/) 글을 번역한 글입니다.
+(저자에게 댓글로 허락을 구하긴 했는데 아직 답변이 없어서 나중에 이 글이 삭제될 가능성이 있음을 알려드립니다.)
+
+---
+
+이 글에서는 Node.js garbage collection이 어떻게 작동하는지, 당신이 코드를 작성할 때 백그라운드에서 어떤 일이 일어나는지, 그리고 메모리가 어떻게 회수되는지 배우게 될 것입니다.
+{% asset_img 'ancient-garbage-collector-in-action.jpg' 'Garage Collector' %}
+
+
 # Node.js 어플리케이션의 메모리 관리
 
 모든 어플리케이션은 제대로 동작하려면 메모리가 필요합니다. 메모리 관리는 프로그램이 메모리를 요청할때 동적으로 메모리 영역을 할당하고 해제할 수 있는 방법을 제공합니다.
@@ -39,7 +50,7 @@ int main() {
    free(description);
 }
 ```
-수동으로 메모리를 관리하는 경우에는 반드시 개발자가 더 이상 사용하지 않는 메모리를 해제를 해줘야 합니다. 이 방법은 당신의 어플리케이션에 몇가지 주요 버그가 발생 수 있습니다.
+수동으로 메모리를 관리하는 경우에는 반드시 개발자가 더 이상 사용하지 않는 메모리를 해제를 해줘야 합니다. 이 방법은 개발자가 실수하는 경우 어플리케이션에 몇 가지 주요 버그를 만들어 내게 됩니다.
 - **메모리 누수(Memory leaks)** - 메모리를 사용하고나서 해제하지 않으면 메모리 누수가 발생합니다.
 - **Wild/dangling pointers** - 삭제된 객체의 포인터가 재사용되는 경우 발생합니다. 다른 데이터 구조를 덮어 쓰거나 중요한 정보를 읽을 때 심각한 보안 이슈가 발생할 수 있습니다.(역자주: 저도 dangling pointer에 대해서 잘 알지 못합니다. 상세한 정보는 [위키-허상 포인터](https://ko.wikipedia.org/wiki/%ED%97%88%EC%83%81_%ED%8F%AC%EC%9D%B8%ED%84%B0)를 참고해 주세요.)
 
@@ -85,7 +96,7 @@ GC가 수행되면 참조가 없는 객체는 삭제가 되고 해당 객체가 
 
 ## The Stack
 
-스택은 지역변수 힙에 있는 객체의 포인터 그리고 어플리케이션의 흐름을 제어하기 위해 정의된 포인터를 가지고 있습니다.
+스택은 지역변수와 힙에 있는 객체의 포인터 또는 어플리케이션의 흐름을 제어하기 위해 정의된 포인터를 가지고 있습니다.
 
 다음 코드에서 ``a``와 ``b``는 스택에 생성될 것입니다.
 
@@ -99,7 +110,7 @@ add(4, 5);
 
 ## The Heap
 
-힙은 문자열이나 객체같은 참조형 객체를 저장하는데 사용됩니다.
+힙은 문자열이나 객체같은 참조형 객체를 저장하는데 사용됩니다.(역자주: 참조형 객체의 포인터는 스택에 생성됩니다.)
 
 다음 코드에서 ``Car`` 객체는 힙에 생성될 것입니다.
 ```js
@@ -161,13 +172,13 @@ let Mater = new Car({name: 'Mater', power: 100});
 
 힙은 ``New Space``, ``Old Space`` 두 개의 메인 영역을 가지고 있습니다.
 
-``New Space``는 새로운 할당이 일어나는 곳입니다. 이것은 ``GC``가 자주 일어나며 1 ~ 8MB의 사이즈를 가지고 있습니다. ``New Space``에 존재하는 객체를 ``Young Generation``이라고 합니다.
+``New Space``는 새로운 할당이 일어나는 곳입니다. 이곳은 ``GC``가 자주 일어나며 1 ~ 8MB의 사이즈를 가지고 있습니다. ``New Space``에 존재하는 객체를 ``Young Generation``이라고 합니다.
 
-``Old Space``는 ``New Space``에서 ``GC`` 살아남은 객체들이 이동하게 됩니다. ``Old Space``에 존재하는 객체를 ``Old Generation``이라고 합니다. ``Old Space``는 할당은 빠르지만 ``GC`` 비용이 비싸기 때문에 ``GC``가 자주 수행되지 않습니다.
+``Old Space``는 ``New Space``에서 ``GC``로 부터 살아남은 객체들이 이동하게 됩니다. ``Old Space``에 존재하는 객체를 ``Old Generation``이라고 합니다. ``Old Space``는 할당은 빠르지만 ``GC`` 비용이 비싸기 때문에 ``GC``가 자주 수행되지 않습니다.
 
 ## Young Generation
 
-일반적으로 약 ~20%의 ``Young Generation``이 살아남아 ``Old Generation``으로 이동됩니다. ``Old Space``에서는 가용한 메모리가 다 소진되면 ``GC``가 수행됩니다. 그래서 ``V8`` 엔진은 두 가지 다른 수집 알고리즘을 사용합니다.
+일반적으로 약 ~20%의 ``Young Generation``이 살아남아 ``Old Generation``이 됩니다. ``Old Space``에서는 가용한 메모리가 다 소진되면 ``GC``가 수행됩니다. 그래서 ``V8`` 엔진은 두 가지 다른 수집 알고리즘을 사용합니다.
 
 ## Scavenge and Mark-Sweep collection
 
@@ -193,10 +204,8 @@ var replaceThing = function () {
 };
 setInterval(replaceThing, 1000);
 ```
-> 클로저가 구현되는 일반적인 방법은 모든 함수 객체가 어휘 범위를 나타내는 사전 스타일 객체에 대한 링크를 가지고 있다는 것입니다.(역자주: 클로저 구현에 대한 설명인데 제 능력으로는 번역이 잘 안되네요. 그냥 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures)의 설명을 보세요.) 전역변수 ``theThing``이 사용되지않는 클로저 함수 ``unused`` 내부에서 사용된 후 재할당이 일어나게 됨으로 써 재할당이 일어나기 전의 전역변수 ``theThing``은 사용되지는 않지만 ``GC``에 의해서 수집되지 않고 계속 남아있게 됩니다.
-이제 크롬의 V8 자바 스크립트 엔진은 어떤 클로저에서도 사용되지 않으면 어휘 환경에서 변수를 유지할 수있을 만큼 스마트합니다. - from the [Meteor blog](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
+> 클로저가 구현되는 일반적인 방법은 모든 함수 객체가 lexical scope를 나타내는 사전 스타일 객체에 대한 링크를 가지고 있는 것입니다.(역자주: lexical scope가 하나의 JSON 객체이며 클로저 함수가 그 객체에 대한 참조를 가지고 있다는 이야기 인것 같습니다.)
+> 만약 ``replaceThing`` 내부에 정의된 두 함수 ``unused``와 ``someMethod``가 ``originalThing``을 실제로 사용한다면 ``originalThing``이 몇 번이 할당되더라도 두 함수가 같은 객체를 참조하고 있다는게 중요하므로 두 함수가 동일한 lexical environment를 공유합니다.
+> 이제 크롬의 V8 자바 스크립트 엔진은 어떤 클로저에서도 사용되지 않으면 어휘 환경에서 변수를 유지할 수있을 만큼 스마트합니다. - from the [Meteor blog](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
+(역자주: 이 부분은 [원본글](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)을 직접 정독해야 이해가 가능합니다. [원본글](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)을 참고해 주세요.)
 
-
----
-
-원본글 https://blog.risingstack.com/node-js-at-scale-node-js-garbage-collection/
