@@ -50,7 +50,7 @@ int main() {
    free(description);
 }
 ```
-수동으로 메모리를 관리하는 경우에는 반드시 개발자가 더 이상 사용하지 않는 메모리를 해제를 해줘야 합니다. 이 방법은 개발자가 실수하는 경우 어플리케이션에 몇 가지 주요 버그를 만들어 내게 됩니다.
+수동으로 메모리를 관리하는 경우에는 반드시 개발자가 더 이상 사용하지 않는 메모리를 해제를 해줘야 합니다. 이 방법은 개발자가 실수하는 경우 어플리케이션에 몇 가지 주요 버그를 만들 수 있습니다.
 - **메모리 누수(Memory leaks)** - 메모리를 사용하고나서 해제하지 않으면 메모리 누수가 발생합니다.
 - **Wild/dangling pointers** - 삭제된 객체의 포인터가 재사용되는 경우 발생합니다. 다른 데이터 구조를 덮어 쓰거나 중요한 정보를 읽을 때 심각한 보안 이슈가 발생할 수 있습니다.(역자주: 저도 dangling pointer에 대해서 잘 알지 못합니다. 상세한 정보는 [위키-허상 포인터](https://ko.wikipedia.org/wiki/%ED%97%88%EC%83%81_%ED%8F%AC%EC%9D%B8%ED%84%B0)를 참고해 주세요.)
 
@@ -71,7 +71,7 @@ GC가 특정 객체가 더 이상 사용되지 않는다는 것을 알 수있는
 
 ## GC 수행 후 메모리
 
-GC가 수행되면 참조가 없는 객체는 삭제가 되고 해당 객체가 사용중이던 메모리는 회수됩니다.
+GC가 수행되면 참조가 없어 접슨할 수 없는 객체는 삭제가 되고 해당 객체가 사용중이던 메모리는 회수됩니다.
 
 {% asset_img 'memory-state-after-node-js-garbage-collection.png' 'GC 수행전 메모리' %}
 
@@ -138,7 +138,7 @@ const Mater = new Car({name: 'Mater'});
 
 만약 ``GC``가 지금 수행된다면 ``root``가 모든 객체를 참조하고 있기 때문에 아무것도 변하지 않을 것입니다.
 
-약간의 파트를 추가해서 좀 더 흥미롭게 만들어 보겠습니다.
+약간의 부품을 추가해서 좀 더 흥미롭게 만들어 보겠습니다.
 ```js
 function Engine (power) {
   this.power = power;
@@ -204,8 +204,8 @@ var replaceThing = function () {
 };
 setInterval(replaceThing, 1000);
 ```
-> 클로저가 구현되는 일반적인 방법은 모든 함수 객체가 lexical scope를 나타내는 사전 스타일 객체에 대한 링크를 가지고 있는 것입니다.(역자주: lexical scope가 하나의 JSON 객체이며 클로저 함수가 그 객체에 대한 참조를 가지고 있다는 이야기 인것 같습니다.)
-> 만약 ``replaceThing`` 내부에 정의된 두 함수 ``unused``와 ``someMethod``가 ``originalThing``을 실제로 사용한다면 ``originalThing``이 몇 번이 할당되더라도 두 함수가 같은 객체를 참조하고 있다는게 중요하므로 두 함수가 동일한 lexical environment를 공유합니다.
-> 이제 크롬의 V8 자바 스크립트 엔진은 어떤 클로저에서도 사용되지 않으면 어휘 환경에서 변수를 유지할 수있을 만큼 스마트합니다. - from the [Meteor blog](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
+> 클로저가 구현되는 일반적인 방법은 모든 함수 객체가 lexical scope에 대한 링크를 가지는 것이며, 링크는 사전 스타일의 lexical scope 객체를 표현합니다.(역자주: lexical scope가 하나의 JSON같은 객체이며 클로저 함수가 그 객체에 대한 참조를 가지고 있다는 이야기 인것 같습니다.)
+> 만약 ``replaceThing`` 내부에 정의된 두 함수 ``unused``와 ``someMethod``가 ``originalThing``을 실제로 사용한다면 originalThing이 계속 할당되더라도, 두 함수가 동일한 lexical environment 를 공유하도록 두 함수 모두 같은 객체를 사용한다는 것은 중요할 것입니다. 
+> 이제 크롬의 V8 자바 스크립트 엔진은 어떤 클로저에서도 사용되지 않는 변수는 어휘 환경에서 변수를 제외할 만큼 충분히 스마트합니다. - from the [Meteor blog](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
 (역자주: 이 부분은 [원본글](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)을 직접 정독해야 이해가 가능합니다. [원본글](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)을 참고해 주세요.)
 
