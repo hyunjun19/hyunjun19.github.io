@@ -10,8 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="서버 네트워크 속도(대역폭) 측정하기
-AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.[2017-09-23] 정">
+        <meta name="description" content="저는 종종 오픈소스를 포크(fork)한 후 수정해서 pull request를 보내거나 개인적으로 사용하고 있습니다.하지만 원본 저장소의 변경 내용을 포크(fork)한 제 저장소에 반영할 때 마다 방법을 잊어버려서 기록으로 남겨둡니다.
+절차
+원본 저장소를 원본 저장소라고">
     
 
     <!--Author-->
@@ -21,7 +22,7 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="server-network-perf"/>
+        <meta property="og:title" content="포크한 깃허브 저장소를 원본 저장소와 동기화 하기"/>
     
 
     <!--Open Graph Description-->
@@ -43,7 +44,7 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
 
     <!-- Title -->
     
-    <title>server-network-perf - 개발새발</title>
+    <title>포크한 깃허브 저장소를 원본 저장소와 동기화 하기 - 개발새발</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -135,13 +136,13 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2017/09/21/server-network-perf/">
-                server-network-perf
+            <a href="/2018/03/09/github-fork-syncing/">
+                포크한 깃허브 저장소를 원본 저장소와 동기화 하기
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2017-09-21</span>
+                <span class="date">2018-03-09</span>
             
             
                 <a href="#disqus_thread" class="comments">Kommentare</a>
@@ -156,52 +157,22 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
         
 
         <!-- Post Content -->
-        <h1 id="서버-네트워크-속도-대역폭-측정하기"><a href="#서버-네트워크-속도-대역폭-측정하기" class="headerlink" title="서버 네트워크 속도(대역폭) 측정하기"></a>서버 네트워크 속도(대역폭) 측정하기</h1><img src="/2017/09/21/server-network-perf/highway-393492_1920.jpg" title="우리는 항상 빠른 속도를 원한다.">
-<p>AWS는 <a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">EC2 인스턴스 타입</a>별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.<br>아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.<br><strong><strong><em>[2017-09-23] 정정합니다. <a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a>을 보면 대역폭이 나와있습니다. 하지만 T2 인스턴스는 해당 표에 없습니다.</em></strong></strong></p>
-<p>어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록 하겠습니다.<br>측정 도구로는 <a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a>를 사용하도록 하겠습니다.</p>
-<h2 id="준비물"><a href="#준비물" class="headerlink" title="준비물"></a>준비물</h2><ol>
-<li>클라이언트 PC 1대(간단하게 그냥 Macbook Pro와 일반 가정용 인터넷을 사용했습니다.)</li>
-<li>서버(AWS EC2 t2.medium) 1대</li>
-</ol>
-<h2 id="iperf-설치하기"><a href="#iperf-설치하기" class="headerlink" title="iperf 설치하기"></a>iperf 설치하기</h2><ol>
-<li>클라이언트<ol>
-<li><code>$ brew install iperf</code></li>
-</ol>
-</li>
-<li>서버<ol>
-<li><code>$ sudo yum install iperf</code></li>
-</ol>
-</li>
-</ol>
-<h2 id="iperf-테스트하기"><a href="#iperf-테스트하기" class="headerlink" title="iperf 테스트하기"></a>iperf 테스트하기</h2><ol>
-<li>서버<ol>
-<li><code>$ iperf -s</code></li>
-<li>옵션설명<ul>
-<li>-s: iperf가 서버모드로 실행됩니다.</li>
+        <p>저는 종종 오픈소스를 포크(fork)한 후 수정해서 pull request를 보내거나 개인적으로 사용하고 있습니다.<br>하지만 원본 저장소의 변경 내용을 포크(fork)한 제 저장소에 반영할 때 마다 방법을 잊어버려서 기록으로 남겨둡니다.</p>
+<h2 id="절차"><a href="#절차" class="headerlink" title="절차"></a>절차</h2><ul>
+<li>원본 저장소를 <strong>원본 저장소</strong>라고 하겠습니다.</li>
+<li>제가 포크한 저장소를 앞으로는 <strong>포크 저장소</strong>라고 하겠습니다.</li>
 </ul>
-</li>
+<ol>
+<li>로컬로 <strong>포크 저장소</strong>를 clone 합니다.</li>
+<li>로컬에 있는 <strong>포크 저장소</strong>에 리모트를 설정해 줍니다.</li>
+<li><strong>포크 저장소</strong>에 <strong>원본 저장소</strong>를 머지합니다.</li>
 </ol>
-</li>
-<li>클라이언트<ol>
-<li><code>$ iperf -c ${SERVER_IP} -i 1 -t 10</code></li>
-<li>옵션설명<ul>
-<li>-c: 클라이언트 모드로 실행</li>
-<li>${SERVER_IP}: 테스트할 서버의 IP</li>
-<li>-i 1: 반복 시간 간격(초단위)</li>
-<li>-t: 테스트할 시간(초단위)</li>
+<h2 id="실전-CLI"><a href="#실전-CLI" class="headerlink" title="실전 CLI"></a>실전 CLI</h2><ul>
+<li><strong>원본 저장소</strong> =&gt; <a href="https://github.com/ax5ui/ax5ui-kernel" target="_blank" rel="noopener">https://github.com/ax5ui/ax5ui-kernel</a></li>
+<li><strong>포크 저장소</strong> =&gt; <a href="https://github.com/hyunjun19/ax5ui-kernel.git" target="_blank" rel="noopener">https://github.com/hyunjun19/ax5ui-kernel.git</a></li>
 </ul>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="서버로그"><a href="#서버로그" class="headerlink" title="서버로그"></a>서버로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ iperf -s</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Server listening on TCP port 5001</span><br><span class="line">TCP window size: 85.3 KByte (default)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">[  4] local 172.31.25.62 port 5001 connected with 115.140.62.214 port 56015</span><br><span class="line">[ ID] Interval       Transfer     Bandwidth</span><br><span class="line">[  4]  0.0-10.1 sec  29.3 MBytes  24.2 Mbits/sec</span><br></pre></td></tr></table></figure>
-<h3 id="클라이언트-로그"><a href="#클라이언트-로그" class="headerlink" title="클라이언트 로그"></a>클라이언트 로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ iperf -c ###.###.###.### -i 1 -t 10</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Client connecting to ###.###.###.###, TCP port 5001</span><br><span class="line">TCP window size:  129 KByte (default)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">[  4] local 192.168.219.121 port 61977 connected with ###.###.###.### port 5001</span><br><span class="line">[ ID] Interval       Transfer     Bandwidth</span><br><span class="line">[  4]  0.0- 1.0 sec  4.00 MBytes  33.6 Mbits/sec</span><br><span class="line">[  4]  1.0- 2.0 sec  3.38 MBytes  28.3 Mbits/sec</span><br><span class="line">[  4]  2.0- 3.0 sec  3.38 MBytes  28.3 Mbits/sec</span><br><span class="line">[  4]  3.0- 4.0 sec  3.50 MBytes  29.4 Mbits/sec</span><br><span class="line">[  4]  4.0- 5.0 sec  2.38 MBytes  19.9 Mbits/sec</span><br><span class="line">[  4]  5.0- 6.0 sec  4.12 MBytes  34.6 Mbits/sec</span><br><span class="line">[  4]  6.0- 7.0 sec  3.88 MBytes  32.5 Mbits/sec</span><br><span class="line">[  4]  7.0- 8.0 sec  4.12 MBytes  34.6 Mbits/sec</span><br><span class="line">[  4]  8.0- 9.0 sec  3.75 MBytes  31.5 Mbits/sec</span><br><span class="line">[  4]  9.0-10.0 sec  4.50 MBytes  37.7 Mbits/sec</span><br><span class="line">[  4]  0.0-10.0 sec  37.1 MBytes  31.1 Mbits/sec</span><br></pre></td></tr></table></figure>
-<h2 id="테스트-결과-읽기"><a href="#테스트-결과-읽기" class="headerlink" title="테스트 결과 읽기"></a>테스트 결과 읽기</h2><ol>
-<li><code>Interval</code>: 호출한 시간 간격</li>
-<li><code>Transfer</code>: 전송한 데이터 사이즈</li>
-<li><code>Bandwidth</code>: 측정된 대역폭(주의: 단위가 Mbits 임. Mbits / 8 === MB)</li>
-</ol>
-<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><p><a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a><br><a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">AWS ec2 인스턴스 타입</a><br><a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// 포크 저장소를 로컬로 클론</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line"></span><br><span class="line">// 로컬 저장소로 이동</span><br><span class="line">$ <span class="built_in">cd</span> ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 현재 설정된 리모트 저장소 조회</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 추가</span><br><span class="line">$ git remote add upstream https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 확인</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (fetch)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 fetch</span><br><span class="line">$ git fetch upstream</span><br><span class="line">remote: Counting objects: 793, <span class="keyword">done</span>.</span><br><span class="line">remote: Total 793 (delta 692), reused 692 (delta 692), pack-reused 101</span><br><span class="line">Receiving objects: 100% (793/793), 215.62 KiB | 144.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (717/717), completed with 127 <span class="built_in">local</span> objects.</span><br><span class="line">From https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 merge</span><br><span class="line">$ git merge upstream/master</span><br><span class="line">Updating 9cdedc67..92c52dab</span><br><span class="line">Fast-forward</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 포크 저장소로 push</span><br><span class="line">$ git push</span><br><span class="line">Counting objects: 791, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (141/141), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (791/791), 212.18 KiB | 53.05 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 791 (delta 710), reused 723 (delta 650)</span><br><span class="line">remote: Resolving deltas: 100% (710/710), completed with 99 <span class="built_in">local</span> objects.</span><br><span class="line">To https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line">   9cdedc67..92c52dab  master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>끄~~~읏</p>
 
     </div>
 

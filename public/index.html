@@ -135,6 +135,50 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/03/09/github-fork-syncing/">
+                포크한 깃허브 저장소를 원본 저장소와 동기화 하기
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-03-09</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2018/03/09/github-fork-syncing/#disqus_thread" class="comments article-comment-link">Kommentare</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>저는 종종 오픈소스를 포크(fork)한 후 수정해서 pull request를 보내거나 개인적으로 사용하고 있습니다.<br>하지만 원본 저장소의 변경 내용을 포크(fork)한 제 저장소에 반영할 때 마다 방법을 잊어버려서 기록으로 남겨둡니다.</p>
+<h2 id="절차"><a href="#절차" class="headerlink" title="절차"></a>절차</h2><ul>
+<li>원본 저장소를 <strong>원본 저장소</strong>라고 하겠습니다.</li>
+<li>제가 포크한 저장소를 앞으로는 <strong>포크 저장소</strong>라고 하겠습니다.</li>
+</ul>
+<ol>
+<li>로컬로 <strong>포크 저장소</strong>를 clone 합니다.</li>
+<li>로컬에 있는 <strong>포크 저장소</strong>에 리모트를 설정해 줍니다.</li>
+<li><strong>포크 저장소</strong>에 <strong>원본 저장소</strong>를 머지합니다.</li>
+</ol>
+<h2 id="실전-CLI"><a href="#실전-CLI" class="headerlink" title="실전 CLI"></a>실전 CLI</h2><ul>
+<li><strong>원본 저장소</strong> =&gt; <a href="https://github.com/ax5ui/ax5ui-kernel" target="_blank" rel="noopener">https://github.com/ax5ui/ax5ui-kernel</a></li>
+<li><strong>포크 저장소</strong> =&gt; <a href="https://github.com/hyunjun19/ax5ui-kernel.git" target="_blank" rel="noopener">https://github.com/hyunjun19/ax5ui-kernel.git</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// 포크 저장소를 로컬로 클론</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line"></span><br><span class="line">// 로컬 저장소로 이동</span><br><span class="line">$ <span class="built_in">cd</span> ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 현재 설정된 리모트 저장소 조회</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 추가</span><br><span class="line">$ git remote add upstream https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 확인</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (fetch)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 fetch</span><br><span class="line">$ git fetch upstream</span><br><span class="line">remote: Counting objects: 793, <span class="keyword">done</span>.</span><br><span class="line">remote: Total 793 (delta 692), reused 692 (delta 692), pack-reused 101</span><br><span class="line">Receiving objects: 100% (793/793), 215.62 KiB | 144.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (717/717), completed with 127 <span class="built_in">local</span> objects.</span><br><span class="line">From https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 merge</span><br><span class="line">$ git merge upstream/master</span><br><span class="line">Updating 9cdedc67..92c52dab</span><br><span class="line">Fast-forward</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 포크 저장소로 push</span><br><span class="line">$ git push</span><br><span class="line">Counting objects: 791, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (141/141), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (791/791), 212.18 KiB | 53.05 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 791 (delta 710), reused 723 (delta 650)</span><br><span class="line">remote: Resolving deltas: 100% (710/710), completed with 99 <span class="built_in">local</span> objects.</span><br><span class="line">To https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line">   9cdedc67..92c52dab  master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>끄~~~읏</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">
                 Node.js의 GC는 어떻게 동작하는가?
             </a>
@@ -524,6 +568,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
             </li>
             
@@ -533,10 +581,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/09/21/server-network-perf/">server-network-perf</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/24/ts-ios-wifi-webkit-error/">ts-ios-wifi-webkit-error</a>
             </li>
             
         </ul>
