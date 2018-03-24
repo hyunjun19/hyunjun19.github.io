@@ -1,7 +1,7 @@
 ---
 title: package-lock.json은 왜 필요할까?
 date: 2018-03-23 11:07:58
-tags: npm, package.json, package-lock.json, dependency
+tags: [npm, package.json, package-lock.json, dependency]
 ---
 
 {% asset_img 'npm-ls.png' 'npm ls' %}
