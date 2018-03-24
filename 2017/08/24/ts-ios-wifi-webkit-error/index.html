@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="[Trouble Shooting] iOS WiFi parse error증상
+iOS 사파리에서 가자고 사이트를 열면 오류: WebKit에 내부 오류 발생이라고 보여진다.
+
+
+
+사이트의 반응이 매우 느리며 불특정 페이지에서 발생한다.
+WiFi 연결일때만 발생하며 LTE 연">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="HJ.Park">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ts-ios-wifi-webkit-error"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="개발새발"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>ts-ios-wifi-webkit-error - 개발새발</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/08/24/ts-ios-wifi-webkit-error/">
+                ts-ios-wifi-webkit-error
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-24</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="Trouble-Shooting-iOS-WiFi-parse-error"><a href="#Trouble-Shooting-iOS-WiFi-parse-error" class="headerlink" title="[Trouble Shooting] iOS WiFi parse error"></a>[Trouble Shooting] iOS WiFi parse error</h1><h2 id="증상"><a href="#증상" class="headerlink" title="증상"></a>증상</h2><ol>
+<li>iOS 사파리에서 <a href="https://www.thegajago.com" target="_blank" rel="noopener">가자고</a> 사이트를 열면 <code>오류: WebKit에 내부 오류 발생</code>이라고 보여진다.<ul>
+<li><img src="/2017/08/24/ts-ios-wifi-webkit-error/webkit-error.png" title="우리는 항상 빠른 속도를 원한다."></li>
+</ul>
+</li>
+<li>사이트의 반응이 매우 느리며 불특정 페이지에서 발생한다.</li>
+<li>WiFi 연결일때만 발생하며 LTE 연결인 경우 오류가 발생하지 않는다.</li>
+<li>iOS 10.2 버전 업데이트 이후부터 발생된다.</li>
+</ol>
+<h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><ol>
+<li>iOS WiFi 연결상태에서 gzip decoding에 뭔가 문제가 있는것 같다.<ul>
+<li>사실 정확한 원인 및 문서를 찾지 못했다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="해결책"><a href="#해결책" class="headerlink" title="해결책"></a>해결책</h2><ol>
+<li>gzip 옵션을 off 한다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    gzip on; // -&gt; off</span><br><span class="line">    gzip_types text/plain application/xml text/css text/js text/xml application/x-javascript text/javascript application/json appplication/xml+rss;</span><br><span class="line">    gzip_http_version 1.1;</span><br><span class="line">    gzip_disable &quot;MSIE [1-6] \.&quot;;</span><br><span class="line">    gzip_vary on;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="남아있는-과제"><a href="#남아있는-과제" class="headerlink" title="남아있는 과제"></a>남아있는 과제</h2><ol>
+<li>nginx gzip 모듈 버전을 업데이트하면 괜찮지 않을까?</li>
+<li>gzip을 iOS에서만 off 하도록 gzip_disable 값을 셋팅하자.</li>
+</ol>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><ul>
+<li>없음</li>
+</ul>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/23/package-lock-why-need/">package-lock.json은 왜 필요할까</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/hyunjun19">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:hyunjun19@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'hyunjun19-blog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

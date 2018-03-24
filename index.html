@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="HJ.Park">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="개발새발"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="개발새발"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>개발새발</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
+        
+            <h1 id="main-title" class="title">개발새발</h1>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/03/23/package-lock-why-need/">
+                package-lock.json은 왜 필요할까?
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-03-23</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2018/03/23/package-lock-why-need/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="package-lock-json은-왜-필요할까"><a href="#package-lock-json은-왜-필요할까" class="headerlink" title="package-lock.json은 왜 필요할까?"></a>package-lock.json은 왜 필요할까?</h1><p>어느 날 부터 인가 npm을 사용하면 <code>package-lock.json</code> 파일이 같이 생기기 시작했습니다.<br>이 파일의 정체가 궁금했지만 바쁘다는 핑계로 넘어가기를 몇 차례… 이제서야 <code>package-lock.json</code> 파일이 왜 생겼는지 찾아 보았습니다.</p>
+<h2 id="package-lock-json-파일이란"><a href="#package-lock-json-파일이란" class="headerlink" title="package-lock.json 파일이란"></a><code>package-lock.json</code> 파일이란</h2><p><code>package-lock.json</code> 파일은 npm을 사용해서  <code>node_modules</code> 트리나 <code>package.json</code> 파일을 수정하게 되면 자동으로 생성되는 파일입니다.<br>이 파일은 파일이 생성되는 시점의 의존성 트리에 대한 정확한 정보를 가지고 있습니다.</p>
+<p>아래는 <code>package-lock.json</code> 파일의 일부입니다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"db-http-proxy"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</span><br><span class="line">  <span class="attr">"lockfileVersion"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"requires"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    ...</span><br><span class="line">    "abbrev": &#123;</span><br><span class="line">      "version": "1.1.1",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",</span><br><span class="line">      "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="</span><br><span class="line">    &#125;,</span><br><span class="line">    "abstract-logging": &#123;</span><br><span class="line">      "version": "1.0.0",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/abstract-logging/-/abstract-logging-1.0.0.tgz",</span><br><span class="line">      "integrity": "sha1-i33q/TEFWbwo93ck3RuzAXcnjBs="</span><br><span class="line">    &#125;,</span><br><span class="line">    "accept": &#123;</span><br><span class="line">      "version": "3.0.2",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/accept/-/accept-3.0.2.tgz",</span><br><span class="line">      "integrity": "sha512-bghLXFkCOsC1Y2TZ51etWfKDs6q249SAoHTZVfzWWdlZxoij+mgkj9AmUJWQpDY48TfnrTDIe43Xem4zdMe7mQ==",</span><br><span class="line">      "requires": &#123;</span><br><span class="line">        "boom": "7.2.0",</span><br><span class="line">        "hoek": "5.0.3"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="package-lock-json이-필요한-이유"><a href="#package-lock-json이-필요한-이유" class="headerlink" title="package-lock.json이 필요한 이유"></a>package-lock.json이 필요한 이유</h2><p><code>package-lock.json</code> 파일의 의존성 선언에는 <code>version range</code>가 사용됩니다. <code>version range</code>란 특정 버전이 아니라 버전의 범위를 의미합니다.<br>가장 흔한 예로 <code>npm install express</code>를 실행하게 되면 <code>package.json</code> 파일에는 “^4.16.3”(<a href="https://github.com/npm/node-semver#caret-ranges-123-025-004" target="_blank" rel="noopener">Caret Ranges</a>)로 버전 범위가 추가됩니다.</p>
+<p>저 <code>package.json</code> 파일로 <code>npm install</code>을 실행하면 현재는 4.16.3 버전이 설치되지만 <code>express</code>의 새로운 minor, patch가 publish 되면 동일한 <code>package.json</code> 파일로 <code>npm install</code>을 실행해도 4.17.3, 이나 4.16.4 같은 업데이트된 버전이 설치됩니다.</p>
+<p>물론 대부분의 경우에는 문제가 없지만 간혹 업데이트된 버전이 오류를 발생시키는 경우가 있습니다.</p>
+<p><code>package-lock.json</code> 파일은 의존성 트리에 대한 정보를 가지고 있으며 <code>package-lock.json</code> 파일이 작성된 시점의 의존성 트리가 다시 생성될 수 있도록 보장합니다.</p>
+<p>아래 시나리오를 통해서 설명하겠습니다.</p>
+<h3 id="시나리오-1-package-lock-json-파일을-소스-저장소에-커밋하지-않은-경우"><a href="#시나리오-1-package-lock-json-파일을-소스-저장소에-커밋하지-않은-경우" class="headerlink" title="시나리오 1: package-lock.json 파일을 소스 저장소에 커밋하지 않은 경우"></a>시나리오 1: package-lock.json 파일을 소스 저장소에 커밋하지 않은 경우</h3><ol>
+<li>박과장이 npm으로 프로젝트를 만들어서 git에 소스코드를 push 합니다. 이 때 node_modules 폴더를 제외하고 package.json 파일만 커밋합니다.</li>
+<li>김대리는 소스 코드를 pull 하고 <code>npm install</code>을 실행합니다.</li>
+<li>의존성 트리의 일부 버전이 박대리와 다르게 설치됩니다.</li>
+<li>프로그램 실행시 오류가 발생합니다.</li>
+<li>김대리는 오늘도 야근을 합니다.</li>
+</ol>
+<h3 id="시나리오-2-package-lock-json-파일을-소스-저장소에-커밋한-경우"><a href="#시나리오-2-package-lock-json-파일을-소스-저장소에-커밋한-경우" class="headerlink" title="시나리오 2: package-lock.json 파일을 소스 저장소에 커밋한 경우"></a>시나리오 2: package-lock.json 파일을 소스 저장소에 커밋한 경우</h3><ol>
+<li>박과장이 npm으로 프로젝트를 만들어서 git에 소스코드를 push 합니다. 이 때 node_modules 폴더를 제외하고 package.json 파일과 package-lock.json 파일을 같이 커밋합니다.</li>
+<li>김대리는 소스 코드를 pull 하고 <code>npm install</code>을 실행합니다.</li>
+<li>의존성 트리가 박대리가 셋팅한 환경과 동일하게 설치됩니다.</li>
+<li>프로그램이 정상적으로 실행됩니다.</li>
+<li>김대리는 정시 퇴근을 합니다.</li>
+</ol>
+<blockquote>
+<p>실제로 가자고 앱에서 사용하고 있는 <code>react-native-router-flux</code>를 예로 들어볼까요?<br>아래는 프로젝트에서 <code>npm ls</code>로 조회한 의존성 트리에서 <code>react-native-router-flux</code> 부분만 발췌한 부분입니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├─┬ react-native-router-flux@4.0.0-beta.24</span><br><span class="line">│ ├── lodash.isequal@4.5.0</span><br><span class="line">│ ├── mobx@3.6.2</span><br><span class="line">│ ├─┬ mobx-react@4.4.3</span><br><span class="line">│ │ └── hoist-non-react-statics@2.5.0</span><br><span class="line">│ ├── opencollective@1.0.3</span><br><span class="line">│ ├── path-to-regexp@2.2.0</span><br><span class="line">│ ├── prop-types@15.6.1]</span><br><span class="line">│ └── react-navigation@1.0.0-beta.19</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p><code>package.json</code> 파일에 버전을 <code>&quot;react-native-router-flux&quot;: &quot;4.0.0-beta.24&quot;</code> 지정해도 <code>react-native-router-flux</code> 프로젝트 내부의 package.json 파일에 <code>react-navigation</code>이 Caret Range로 선언되어 있기 때문에 <code>react-navigation</code>의 버전은 <code>npm install</code>을 수행하는 시점에 따라서 달라집니다.<br>실제로 문제가 있는 <code>react-navigation</code> 1.0.0-beta21 버전이 릴리즈 된 이후 앱 빌드가 실패해서 <a href="https://github.com/aksonov/react-native-router-flux/issues/2865" target="_blank" rel="noopener">이슈</a>가 되기도 했습니다.(<del>저도 덕분에 야근을 했습니다.</del>)<br>결국 react-native-router-flux 개발자가 <a href="https://github.com/aksonov/react-native-router-flux/commit/37c6553c168b9fb6947a5e533df9bd37793f1f68#diff-b9cfc7f2cdf78a7f4b91a753d10865a2" target="_blank" rel="noopener">Caret Range를 제거하는 패치</a>를 했습니다.</p>
+</blockquote>
+<p><code>package-lock.json</code> 파일은 npm에 의해서 프로젝트의 <code>node_modules</code>나 <code>package.json</code>이 수정되는 경우 생성되거나 업데이트되며 <strong>당시 의존성에 대한 정보를 모두 가지고 있습니다.</strong></p>
+<p>따라서 생성된 <code>package-lock.json</code> 파일은 소스 저장소에 커밋해야 합니다.(반드시 커밋할 필요는 없지만 저장소에 커밋하는 것을 강력추천합니다.)</p>
+<h2 id="요약"><a href="#요약" class="headerlink" title="요약"></a>요약</h2><ol>
+<li><code>package-lock.json</code> 파일은 의존성 트리에 대한 정보를 모두 가지고 있습니다.</li>
+<li><code>package-lock.json</code> 파일은 저장소에 꼭 같이 커밋해야 합니다.</li>
+<li><code>package-lock.json</code> 파일은 <code>node_modules</code> 없이 배포하는 경우 반드시 필요합니다.</li>
+</ol>
+<h2 id="참고자료"><a href="#참고자료" class="headerlink" title="참고자료"></a>참고자료</h2><ul>
+<li><code>package.json</code>에서 사용되는 <code>version range</code> - <a href="https://github.com/npm/node-semver" target="_blank" rel="noopener">https://github.com/npm/node-semver</a></li>
+<li>npm 5 버전 릴리즈 노트 - <a href="https://github.com/npm/npm/releases/tag/v5.0.0" target="_blank" rel="noopener">https://github.com/npm/npm/releases/tag/v5.0.0</a></li>
+<li><code>package-lock.json</code> 공식문서 - <a href="https://docs.npmjs.com/files/package-lock.json" target="_blank" rel="noopener">https://docs.npmjs.com/files/package-lock.json</a></li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/03/09/github-fork-syncing/">
+                포크한 깃허브 저장소를 원본 저장소와 동기화 하기
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-03-09</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2018/03/09/github-fork-syncing/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>저는 종종 오픈소스를 포크(fork)한 후 수정해서 pull request를 보내거나 개인적으로 사용하고 있습니다.<br>하지만 원본 저장소의 변경 내용을 포크(fork)한 제 저장소에 반영할 때 마다 방법을 잊어버려서 기록으로 남겨둡니다.</p>
+<h2 id="절차"><a href="#절차" class="headerlink" title="절차"></a>절차</h2><ul>
+<li>원본 저장소를 <strong>원본 저장소</strong>라고 하겠습니다.</li>
+<li>제가 포크한 저장소를 앞으로는 <strong>포크 저장소</strong>라고 하겠습니다.</li>
+</ul>
+<ol>
+<li>로컬로 <strong>포크 저장소</strong>를 clone 합니다.</li>
+<li>로컬에 있는 <strong>포크 저장소</strong>에 리모트를 설정해 줍니다.</li>
+<li><strong>포크 저장소</strong>에 <strong>원본 저장소</strong>를 머지합니다.</li>
+</ol>
+<h2 id="실전-CLI"><a href="#실전-CLI" class="headerlink" title="실전 CLI"></a>실전 CLI</h2><ul>
+<li><strong>원본 저장소</strong> =&gt; <a href="https://github.com/ax5ui/ax5ui-kernel" target="_blank" rel="noopener">https://github.com/ax5ui/ax5ui-kernel</a></li>
+<li><strong>포크 저장소</strong> =&gt; <a href="https://github.com/hyunjun19/ax5ui-kernel.git" target="_blank" rel="noopener">https://github.com/hyunjun19/ax5ui-kernel.git</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// 포크 저장소를 로컬로 클론</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line"></span><br><span class="line">// 로컬 저장소로 이동</span><br><span class="line">$ <span class="built_in">cd</span> ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 현재 설정된 리모트 저장소 조회</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 추가</span><br><span class="line">$ git remote add upstream https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 확인</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (fetch)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 fetch</span><br><span class="line">$ git fetch upstream</span><br><span class="line">remote: Counting objects: 793, <span class="keyword">done</span>.</span><br><span class="line">remote: Total 793 (delta 692), reused 692 (delta 692), pack-reused 101</span><br><span class="line">Receiving objects: 100% (793/793), 215.62 KiB | 144.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (717/717), completed with 127 <span class="built_in">local</span> objects.</span><br><span class="line">From https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 merge</span><br><span class="line">$ git merge upstream/master</span><br><span class="line">Updating 9cdedc67..92c52dab</span><br><span class="line">Fast-forward</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 포크 저장소로 push</span><br><span class="line">$ git push</span><br><span class="line">Counting objects: 791, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (141/141), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (791/791), 212.18 KiB | 53.05 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 791 (delta 710), reused 723 (delta 650)</span><br><span class="line">remote: Resolving deltas: 100% (710/710), completed with 99 <span class="built_in">local</span> objects.</span><br><span class="line">To https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line">   9cdedc67..92c52dab  master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>끄~~~읏</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">
+                Node.js의 GC는 어떻게 동작하는가?
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-02-19</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2018/02/19/node-js-at-scale-node-js-garbage-collection/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <hr>
+<p>이 글은 <a href="https://blog.risingstack.com" target="_blank" rel="noopener">RisingStack</a>의 Node.js at scale 시리즈 중에서 <a href="https://blog.risingstack.com/node-js-at-scale-node-js-garbage-collection/" target="_blank" rel="noopener">Node.js Garbage Collection Explained</a> 글을 번역한 글입니다.<br>(저자에게 댓글로 허락을 구하긴 했는데 아직 답변이 없어서 나중에 이 글이 삭제될 가능성이 있음을 알려드립니다.)</p>
+<hr>
+<p>이 글에서는 Node.js garbage collection이 어떻게 작동하는지, 당신이 코드를 작성할 때 백그라운드에서 어떤 일이 일어나는지, 그리고 메모리가 어떻게 회수되는지 배우게 될 것입니다.<br><img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/ancient-garbage-collector-in-action.jpg" title="Garage Collector"></p>
+<h1 id="Node-js-어플리케이션의-메모리-관리"><a href="#Node-js-어플리케이션의-메모리-관리" class="headerlink" title="Node.js 어플리케이션의 메모리 관리"></a>Node.js 어플리케이션의 메모리 관리</h1><p>모든 어플리케이션은 제대로 동작하려면 메모리가 필요합니다. 메모리 관리는 프로그램이 메모리를 요청할때 동적으로 메모리 영역을 할당하고 해제할 수 있는 방법을 제공합니다.</p>
+<p>어플리케이션 레벨에서 메모리는 수동 혹은 자동으로 관리됩니다. 자동으로 메모리를 관리하는 경우는 일반적으로는 가비지 컬렉터를 사용합니다.</p>
+<p>다음 코드는 <code>C</code> 언어에서 메모리를 수동으로 할당하는 방법을 보여줍니다.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">   <span class="keyword">char</span> *description;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">strcpy</span>(name, <span class="string">"RisingStack"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// memory allocation</span></span><br><span class="line">   description = <span class="built_in">malloc</span>( <span class="number">30</span> * <span class="keyword">sizeof</span>(<span class="keyword">char</span>) );</span><br><span class="line">	</span><br><span class="line">   <span class="keyword">if</span>( description == <span class="literal">NULL</span> ) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Error - unable to allocate required memory\n"</span>);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">strcpy</span>( description, <span class="string">"Trace by RisingStack is an APM."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"Company name = %s\n"</span>, name );</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"Description: %s\n"</span>, description );</span><br><span class="line"></span><br><span class="line">   <span class="comment">// release memory</span></span><br><span class="line">   <span class="built_in">free</span>(description);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>수동으로 메모리를 관리하는 경우에는 반드시 개발자가 더 이상 사용하지 않는 메모리를 해제를 해줘야 합니다. 이 방법은 개발자가 실수하는 경우 어플리케이션에 몇 가지 주요 버그를 만들 수 있습니다.</p>
+<ul>
+<li><strong>메모리 누수(Memory leaks)</strong> - 메모리를 사용하고나서 해제하지 않으면 메모리 누수가 발생합니다.</li>
+<li><strong>Wild/dangling pointers</strong> - 삭제된 객체의 포인터가 재사용되는 경우 발생합니다. 다른 데이터 구조를 덮어 쓰거나 중요한 정보를 읽을 때 심각한 보안 이슈가 발생할 수 있습니다.(역자주: 저도 dangling pointer에 대해서 잘 알지 못합니다. 상세한 정보는 <a href="https://ko.wikipedia.org/wiki/%ED%97%88%EC%83%81_%ED%8F%AC%EC%9D%B8%ED%84%B0" target="_blank" rel="noopener">위키-허상 포인터</a>를 참고해 주세요.)</li>
+</ul>
+<p><strong>다행히도 Node.js는 가비지 컬렉터와 함께 제공되므로 메모리 할당을 수동으로 관리 할 필요가 없습니다.</strong></p>
+<h1 id="가비지-컬렉터-컨셉"><a href="#가비지-컬렉터-컨셉" class="headerlink" title="가비지 컬렉터 컨셉"></a>가비지 컬렉터 컨셉</h1><p>가비지 컬렉터는 메모리를 자동으로 관리할 수 있는 방법입니다. 가비지 컬렉터(Garbage Collector 일반적으로 <code>GC</code>라고 부릅니다.)가 하는 일은 사용되지 않는 객체(garbage)가 차지하고 있는 메모리를 회수하는 일입니다. 이 방법은 John McCarthy가 발명했으며 1959년 LISP에서 처음 사용되었습니다.</p>
+<p>GC가 특정 객체가 더 이상 사용되지 않는다는 것을 알 수있는 방법은 해당 객체에 다른 객체들의 참조가 있는지를 통해 알 수 있습니다.</p>
+<h2 id="GC-수행-전-메모리"><a href="#GC-수행-전-메모리" class="headerlink" title="GC 수행 전 메모리"></a>GC 수행 전 메모리</h2><p>아래 다이어그램은 참조가 있는 객체와 참조가 없는 객체를 보여주고 있습니다. 참조가 없는 객체는 GC 실행시 수집될 수 있는 대상입니다.</p>
+<img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/memory-state-before-node-js-garbage-collection.png" title="GC 수행전 메모리">
+<h2 id="GC-수행-후-메모리"><a href="#GC-수행-후-메모리" class="headerlink" title="GC 수행 후 메모리"></a>GC 수행 후 메모리</h2><p>GC가 수행되면 참조가 없어 접슨할 수 없는 객체는 삭제가 되고 해당 객체가 사용중이던 메모리는 회수됩니다.</p>
+<img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/memory-state-after-node-js-garbage-collection.png" title="GC 수행전 메모리">
+<h1 id="GC-사용시-얻을-수-있는-이점"><a href="#GC-사용시-얻을-수-있는-이점" class="headerlink" title="GC 사용시 얻을 수 있는 이점"></a>GC 사용시 얻을 수 있는 이점</h1><ul>
+<li>Wild/dangling pointers 버그를 예방할 수 있습니다.</li>
+<li>이미 회수된 메모리 공간을 다시 회수하려고 시도하지 않습니다.</li>
+<li>일부 메모리 누수를 막아줍니다.</li>
+</ul>
+<p>물론 <code>GC</code>가 당신의 모든 문제를 해결해 주지는 못합니다. 그리고 <code>GC</code>는 메모리 관리를 위한 은총알이 아닙니다. 당신이 명심해야 할 사항들을 살펴보도록 하겠습니다.</p>
+<h2 id="GC-사용시-명심해야-할-것들"><a href="#GC-사용시-명심해야-할-것들" class="headerlink" title="GC 사용시 명심해야 할 것들"></a>GC 사용시 명심해야 할 것들</h2><ul>
+<li><strong>성능에 미치는 영향(performance impact)</strong> - <code>GC</code> 대상을 결정하기 위해서 <code>GC</code>는 컴퓨팅 파워를 사용합니다.</li>
+<li><strong>예측할 수 없는 지연(unpredictable stalls)</strong> - 최신의 <code>GC</code>는 <code>stop-the-world</code> 수집을 피하려고 노력합니다.(역자주: 기본적으로 <code>GC</code>를 수행하게 되면 해당 어플리케이션은 <code>GC</code>가 끝날때 까지 멈추게 됩니다. 따라서 이런 문제를 해결하기 위해서 최신 <code>GC</code>는 다양한 방법을 사용합니다.)</li>
+</ul>
+<h1 id="Node-js의-GC와-메모리-관리-실습"><a href="#Node-js의-GC와-메모리-관리-실습" class="headerlink" title="Node.js의 GC와 메모리 관리 실습"></a>Node.js의 GC와 메모리 관리 실습</h1><p>실습을 통해서 알아봅시다.</p>
+<h2 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h2><p>스택은 지역변수와 힙에 있는 객체의 포인터 또는 어플리케이션의 흐름을 제어하기 위해 정의된 포인터를 가지고 있습니다.</p>
+<p>다음 코드에서 <code>a</code>와 <code>b</code>는 스택에 생성될 것입니다.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">4</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="The-Heap"><a href="#The-Heap" class="headerlink" title="The Heap"></a>The Heap</h2><p>힙은 문자열이나 객체같은 참조형 객체를 저장하는데 사용됩니다.(역자주: 참조형 객체의 포인터는 스택에 생성됩니다.)</p>
+<p>다음 코드에서 <code>Car</code> 객체는 힙에 생성될 것입니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span> (<span class="params">opts</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = opts.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LightningMcQueen = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Lightning McQueen'</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>이 후, 메모리는 다음과 같이 보입니다.<br><img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/node-js-garbage-collection-first-step-object-placed-in-memory-heap.png" title="step 1"></p>
+<p><code>Car</code>를 좀 더 추가해 보면 메모리는 다음과 같이 보입니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span> (<span class="params">opts</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = opts.name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LightningMcQueen = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Lightning McQueen'</span>&#125;);</span><br><span class="line"><span class="keyword">const</span> SallyCarrera = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Sally Carrera'</span>&#125;);</span><br><span class="line"><span class="keyword">const</span> Mater = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Mater'</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/node-js-garbage-collection-second-step-more-elements-added-to-the-heap.png" title="step 2">
+<p>만약 <code>GC</code>가 지금 수행된다면 <code>root</code>가 모든 객체를 참조하고 있기 때문에 아무것도 변하지 않을 것입니다.</p>
+<p>약간의 부품을 추가해서 좀 더 흥미롭게 만들어 보겠습니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Engine</span> (<span class="params">power</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.power = power;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span> (<span class="params">opts</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = opts.name;</span><br><span class="line">  <span class="keyword">this</span>.engine = <span class="keyword">new</span> Engine(opts.power);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> LightningMcQueen = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Lightning McQueen'</span>, <span class="attr">power</span>: <span class="number">900</span>&#125;);</span><br><span class="line"><span class="keyword">let</span> SallyCarrera = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Sally Carrera'</span>, <span class="attr">power</span>: <span class="number">500</span>&#125;);</span><br><span class="line"><span class="keyword">let</span> Mater = <span class="keyword">new</span> Car(&#123;<span class="attr">name</span>: <span class="string">'Mater'</span>, <span class="attr">power</span>: <span class="number">100</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/node-js-garbage-collection-assigning-values-to-the-objects-in-heap.png">
+<p><code>Mater</code>에 <code>Mater = undefined</code> 처럼 다른 값을 할당하면 어떻게 보일까요?<br><img src="/2018/02/19/node-js-at-scale-node-js-garbage-collection/node-js-garbage-collection-redefining-values.png"></p>
+<p>원본 <code>Mater</code> 객체는 <code>root</code>와의 참조가 끊어지게 됩니다. 따라서 다음 <code>GC</code> 수행시에 <code>Mater</code> 객체는 힙에서 해제될 것입니다.<br></p>
+<p>이제 우리는 <code>GC</code>의 기본 동작 원리를 이해하고 <code>V8</code>에서 어떻게 구현되었는지 살펴보겠습니다.</p>
+<h1 id="Garbage-Collection-Methods"><a href="#Garbage-Collection-Methods" class="headerlink" title="Garbage Collection Methods"></a>Garbage Collection Methods</h1><p>다음으로 넘어가기 전에 <a href="https://blog.risingstack.com/finding-a-memory-leak-in-node-js/" target="_blank" rel="noopener">how the Node.js garbage collection methods work</a> 이글을 먼저 읽기를 권장합니다.</p>
+<h2 id="New-Space-and-Old-Space"><a href="#New-Space-and-Old-Space" class="headerlink" title="New Space and Old Space"></a>New Space and Old Space</h2><p>힙은 <code>New Space</code>, <code>Old Space</code> 두 개의 메인 영역을 가지고 있습니다.</p>
+<p><code>New Space</code>는 새로운 할당이 일어나는 곳입니다. 이곳은 <code>GC</code>가 자주 일어나며 1 ~ 8MB의 사이즈를 가지고 있습니다. <code>New Space</code>에 존재하는 객체를 <code>Young Generation</code>이라고 합니다.</p>
+<p><code>Old Space</code>는 <code>New Space</code>에서 <code>GC</code>로 부터 살아남은 객체들이 이동하게 됩니다. <code>Old Space</code>에 존재하는 객체를 <code>Old Generation</code>이라고 합니다. <code>Old Space</code>는 할당은 빠르지만 <code>GC</code> 비용이 비싸기 때문에 <code>GC</code>가 자주 수행되지 않습니다.</p>
+<h2 id="Young-Generation"><a href="#Young-Generation" class="headerlink" title="Young Generation"></a>Young Generation</h2><p>일반적으로 약 ~20%의 <code>Young Generation</code>이 살아남아 <code>Old Generation</code>이 됩니다. <code>Old Space</code>에서는 가용한 메모리가 다 소진되면 <code>GC</code>가 수행됩니다. 그래서 <code>V8</code> 엔진은 두 가지 다른 수집 알고리즘을 사용합니다.</p>
+<h2 id="Scavenge-and-Mark-Sweep-collection"><a href="#Scavenge-and-Mark-Sweep-collection" class="headerlink" title="Scavenge and Mark-Sweep collection"></a>Scavenge and Mark-Sweep collection</h2><p><code>Scavenge</code> 수집은 빠르고 <code>Young Generation</code>에서 수행됩니다. 반면 <code>Mark-Sweep</code>은 상대적으로 느리며 <code>Old Generation</code>에서 수행됩니다.</p>
+<h1 id="실전-사례-학습-The-Meteor-Case"><a href="#실전-사례-학습-The-Meteor-Case" class="headerlink" title="실전 사례 학습 - The Meteor Case"></a>실전 사례 학습 - The <a href="https://www.meteor.com/" target="_blank" rel="noopener">Meteor</a> Case</h1><p>2013년 <a href="https://www.meteor.com/" target="_blank" rel="noopener">Meteor</a>의 창시자가 메모리 누수에 대한 사례를 발표했습니다. 문제가 되는 코드는 다음과 같습니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> theThing = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> replaceThing = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> originalThing = theThing;</span><br><span class="line">  <span class="keyword">var</span> unused = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (originalThing)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"hi"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  theThing = &#123;</span><br><span class="line">    longStr: <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>).join(<span class="string">'*'</span>),</span><br><span class="line">    someMethod: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(someMessage);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">setInterval(replaceThing, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>클로저가 구현되는 일반적인 방법은 모든 함수 객체가 lexical scope에 대한 링크를 가지는 것이며, 링크는 사전 스타일의 lexical scope 객체를 표현합니다.(역자주: lexical scope가 하나의 JSON같은 객체이며 클로저 함수가 그 객체에 대한 참조를 가지고 있다는 이야기 인것 같습니다.)<br>만약 <code>replaceThing</code> 내부에 정의된 두 함수 <code>unused</code>와 <code>someMethod</code>가 <code>originalThing</code>을 실제로 사용한다면 originalThing이 계속 할당되더라도, 두 함수가 동일한 lexical environment 를 공유하도록 두 함수 모두 같은 객체를 사용한다는 것은 중요할 것입니다.<br>이제 크롬의 V8 자바 스크립트 엔진은 어떤 클로저에서도 사용되지 않는 변수는 어휘 환경에서 변수를 제외할 만큼 충분히 스마트합니다. - from the <a href="https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156" target="_blank" rel="noopener">Meteor blog</a><br>(역자주: 이 부분은 <a href="https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156" target="_blank" rel="noopener">원본글</a>을 직접 정독해야 이해가 가능합니다. <a href="https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156" target="_blank" rel="noopener">원본글</a>을 참고해 주세요.)</p>
+</blockquote>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/09/23/how-cookie-works/">
+                how-cookie-works
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-23</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2017/09/23/how-cookie-works/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="How-Cookie-Works"><a href="#How-Cookie-Works" class="headerlink" title="How Cookie Works"></a>How Cookie Works</h1><h2 id="Cookie란"><a href="#Cookie란" class="headerlink" title="Cookie란?"></a>Cookie란?</h2><p>HTTP는 기본적으로 <a href="https://ko.wikipedia.org/wiki/무상태_프로토콜" target="_blank" rel="noopener">무상태 프로토콜</a>입니다.<br>HTTP 서버가 클라이언트에 대한 상태를 가지고 있지 않기 때문에 각각의 요청을 이전 요청과 무관한 독립적인 트랜잭션으로 취급하게 됩니다.<br>하지만 그렇게 되면 세션과 개인화(회원별 서비스)등을 관리할 수 없게 되기 때문에 Cookie(이하 쿠키)를 사용하게 됩니다.</p>
+<p>HTTP의 쿠키는 마치 헨젤과 그레텔의 쿠키(<del>돌맹이나 빵 버전도 있습니다.</del>)와 같습니다.<br>헨젤과 그레텔은 자신들이 돌아갈 길을 잊지 않기 위해서 사용하지만 HTTP의 쿠키는 HTTP 요청을 보내는 클라이언트를 식별하기 위해서 사용합니다.<br><img src="/2017/09/23/how-cookie-works/breadcrumbs.jpg" title="헨젤과 그레텔의 쿠키"></p>
+<h2 id="HTTP-메시지"><a href="#HTTP-메시지" class="headerlink" title="HTTP 메시지"></a>HTTP 메시지</h2><p><strong><strong><em>[주의] 아래 설명은 웹 브라우저를 기반으로 설명한 내용입니다. 서버나 앱, 크롤러 등 다른 클라이언트에서 HTTP를 호출하는 경우 설정에 따라 다르게 동작합니다.</em></strong></strong><br><img src="/2017/09/23/how-cookie-works/http-req-res.png" title="쿠키 생성 과정"></p>
+<ol>
+<li>최초 HTTP 요청<ul>
+<li>웹브라우저에서 처음 방문하는 웹사이트에 요청을 보냅니다.</li>
+</ul>
+</li>
+<li>세션 ID 발급<ul>
+<li><code>Set-Cookie:s_u_k=2ecf65a9-3678-497c-a620-640a88cabb44; Expires=Fri, 20-Oct-2017 15:24:31 GMT; Path=/</code></li>
+<li><code>Set-Cookie:SESSION=b5e3d1d6-bdcf-4d13-9502-9a9a654d35c1; Path=/; Secure; HttpOnly</code></li>
+<li><code>Set-Cookie</code> 필드에 대한 상세 정보는 <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Set-Cookie" target="_blank" rel="noopener">MDN 문서</a>를 참고해주세요.</li>
+<li><strong><strong><em>[주의] 모든 사이트가 항상 최초의 요청에 세션 ID를 발급하는 것은 아닙니다. 하지만 일반적으로 거의 모든 사이트가 사용자 추적을 위해서 최초 방문시 세션 ID를 발급하며 세션 ID 명이나 값 등의 상세 정책은 사이트마다 다를 수 있습니다.</em></strong></strong></li>
+</ul>
+</li>
+<li>모든 요청 헤더에 Cookie 포함<ul>
+<li><code>Cookie:s_u_k=2ecf65a9-3678-497c-a620-640a88cabb44; SESSION=b5e3d1d6-bdcf-4d13-9502-9a9a654d35c1</code></li>
+<li>이때 동일한 도메인으로 보내는 모든 요청에 쿠키가 포함되어 요청이 날아갑니다. HTML, CSS, JS, 이미지 등 모든 요청 헤더에 쿠키가 달라붙습니다. 아래 <a href="#주의하세요">상세 내용</a>을 참고해 주세요.</li>
+</ul>
+</li>
+<li>응답 헤더에는 Cookie 미포함</li>
+</ol>
+<h2 id="주의하세요"><a href="#주의하세요" class="headerlink" title="주의하세요~"></a>주의하세요~</h2><p>예전에는 쿠키를 브라우저의 클라이언트 데이터 저장용으로 사용하는 경우도 있었지만 <code>localStorage</code>, <code>sessionStorage</code>(IE8 이상 지원)가 있는 이상 더 이상 쿠키를 데이터 베이스처럼 사용해서는 안됩니다.<br>쿠키는 크기 제한(브라우저 마다 다릅니다.)이 있으며 HTTP 요청을 주고 받을 때 마다 헤더를 통해서 전송이 되므로 성능상 낭비가 일어나게 됩니다.<br>IE8 이전의 시대에는 대안이 없었지만 현재는 IE8 미만의 브라우저는 거의 없으므로 클라이언트 데이터 저장은 용도에 맞게 <code>localStorage</code>, <code>sessionStorage</code>에 저장해야 합니다.</p>
+<p>쿠키의 크기가 1KB, 화면 하나에 HTTP 요청이 10개, 서버에 사용자가 동시에 100명이 동시에 접속한다고 가정하면 서버에 1MB의 불필요한 트래픽이 발생하게 됩니다.<br>동시접속 사용자가 적을 경우는 괜찮지만 서비스가 성장하게 되면 반드시 성능상 문제가 발생하게 됩니다.</p>
+<h2 id="쿠키-상세-정보"><a href="#쿠키-상세-정보" class="headerlink" title="쿠키 상세 정보"></a>쿠키 상세 정보</h2><img src="/2017/09/23/how-cookie-works/dev-tools-cookie.png" title="크롬 개발자 도구 Application 탭">
+<ol>
+<li>Name<ul>
+<li>쿠키 이름(키))</li>
+</ul>
+</li>
+<li>Value<ul>
+<li>쿠키 값</li>
+</ul>
+</li>
+<li>Domain<ul>
+<li>쿠키가 적용될 도메인 정보</li>
+<li>브라우저는 도메인 정보가 같은 쿠키만 요청 헤더에 <code>Cookie</code> 필드를 자동으로 추가 합니다.</li>
+</ul>
+</li>
+<li>Path<ul>
+<li>쿠키를 경로를 지정해서 마치 폴더와 같이 관리할 수 있습니다.</li>
+</ul>
+</li>
+<li>Expires<ul>
+<li><code>Expires</code>에 명시된 날짜에 쿠키가 만료(삭제)됩니다.</li>
+<li><code>Expires</code>, <code>Max-Age</code>가 명시되지 않은 경우 세션 쿠키입니다. 브라우저가 종료되면 해당 쿠키는 삭제됩니다. 하지만 요즘 브라우저들은 종료되었다가 다시 시작되어도 <a href="(https://support.mozilla.org/ko/kb/restore-previous-session#w_eieo-hiuayi-ykiiaooe-hlou">이전 세션을 복원하는 기능</a>이 있어서 세션이 계속 유지되는 경우가 많습니다.</li>
+</ul>
+</li>
+<li>HttpOnly<ul>
+<li><code>HttpOnly</code> 필드가 선언되면 스크립트에서는 해당 쿠키에 접근할 수 없습니다. 하지만 브라우저가 아닌 다른 클라이언트(ex. 크롤러)에서 접근하면 해당 정보를 취득할 수 있습니다.</li>
+</ul>
+</li>
+<li>Secure<ul>
+<li><code>Secure</code> 필드가 선언되면 해당 쿠키는 HTTPS(SSL) 프로토콜을 사용한 경우에만 전송이 됩니다. 하지만 그렇다고 하더라도 절대로 민감한 정보를 담아서는 안됩니다.<br>좀 더 상세한 내용은 MDN에서 한글로 번역된 <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">상세한 문서</a>를 참고해 주세요.</li>
+</ul>
+</li>
+</ol>
+<h2 id="쿠키를-이용한-세션관리"><a href="#쿠키를-이용한-세션관리" class="headerlink" title="쿠키를 이용한 세션관리"></a>쿠키를 이용한 세션관리</h2><p>웹에서는 쿠키를 이용해서 세션을 관리하게 됩니다.<br>쿠키를 이용한 세션관리는 다음 편에서 별도로 설명하겠습니다.</p>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><p><a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">MDN HTTP 쿠키</a><br><a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Set-Cookie" target="_blank" rel="noopener">MDN Set-Cookie</a><br><a href="https://tools.ietf.org/html/rfc6265#section-4.1" target="_blank" rel="noopener">RFC-6265</a><br><a href="https://support.mozilla.org/ko/kb/restore-previous-session#w_eieo-hiuayi-ykiiaooe-hlou" target="_blank" rel="noopener">브라우저 세션 복원</a></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/09/21/server-network-perf/">
+                server-network-perf
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-21</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2017/09/21/server-network-perf/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="서버-네트워크-속도-대역폭-측정하기"><a href="#서버-네트워크-속도-대역폭-측정하기" class="headerlink" title="서버 네트워크 속도(대역폭) 측정하기"></a>서버 네트워크 속도(대역폭) 측정하기</h1><img src="/2017/09/21/server-network-perf/highway-393492_1920.jpg" title="우리는 항상 빠른 속도를 원한다.">
+<p>AWS는 <a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">EC2 인스턴스 타입</a>별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.<br>아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.<br><strong><strong><em>[2017-09-23] 정정합니다. <a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a>을 보면 대역폭이 나와있습니다. 하지만 T2 인스턴스는 해당 표에 없습니다.</em></strong></strong></p>
+<p>어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록 하겠습니다.<br>측정 도구로는 <a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a>를 사용하도록 하겠습니다.</p>
+<h2 id="준비물"><a href="#준비물" class="headerlink" title="준비물"></a>준비물</h2><ol>
+<li>클라이언트 PC 1대(간단하게 그냥 Macbook Pro와 일반 가정용 인터넷을 사용했습니다.)</li>
+<li>서버(AWS EC2 t2.medium) 1대</li>
+</ol>
+<h2 id="iperf-설치하기"><a href="#iperf-설치하기" class="headerlink" title="iperf 설치하기"></a>iperf 설치하기</h2><ol>
+<li>클라이언트<ol>
+<li><code>$ brew install iperf</code></li>
+</ol>
+</li>
+<li>서버<ol>
+<li><code>$ sudo yum install iperf</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="iperf-테스트하기"><a href="#iperf-테스트하기" class="headerlink" title="iperf 테스트하기"></a>iperf 테스트하기</h2><ol>
+<li>서버<ol>
+<li><code>$ iperf -s</code></li>
+<li>옵션설명<ul>
+<li>-s: iperf가 서버모드로 실행됩니다.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>클라이언트<ol>
+<li><code>$ iperf -c ${SERVER_IP} -i 1 -t 10</code></li>
+<li>옵션설명<ul>
+<li>-c: 클라이언트 모드로 실행</li>
+<li>${SERVER_IP}: 테스트할 서버의 IP</li>
+<li>-i 1: 반복 시간 간격(초단위)</li>
+<li>-t: 테스트할 시간(초단위)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="서버로그"><a href="#서버로그" class="headerlink" title="서버로그"></a>서버로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ iperf -s</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Server listening on TCP port 5001</span><br><span class="line">TCP window size: 85.3 KByte (default)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">[  4] local 172.31.25.62 port 5001 connected with 115.140.62.214 port 56015</span><br><span class="line">[ ID] Interval       Transfer     Bandwidth</span><br><span class="line">[  4]  0.0-10.1 sec  29.3 MBytes  24.2 Mbits/sec</span><br></pre></td></tr></table></figure>
+<h3 id="클라이언트-로그"><a href="#클라이언트-로그" class="headerlink" title="클라이언트 로그"></a>클라이언트 로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ iperf -c ###.###.###.### -i 1 -t 10</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Client connecting to ###.###.###.###, TCP port 5001</span><br><span class="line">TCP window size:  129 KByte (default)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">[  4] local 192.168.219.121 port 61977 connected with ###.###.###.### port 5001</span><br><span class="line">[ ID] Interval       Transfer     Bandwidth</span><br><span class="line">[  4]  0.0- 1.0 sec  4.00 MBytes  33.6 Mbits/sec</span><br><span class="line">[  4]  1.0- 2.0 sec  3.38 MBytes  28.3 Mbits/sec</span><br><span class="line">[  4]  2.0- 3.0 sec  3.38 MBytes  28.3 Mbits/sec</span><br><span class="line">[  4]  3.0- 4.0 sec  3.50 MBytes  29.4 Mbits/sec</span><br><span class="line">[  4]  4.0- 5.0 sec  2.38 MBytes  19.9 Mbits/sec</span><br><span class="line">[  4]  5.0- 6.0 sec  4.12 MBytes  34.6 Mbits/sec</span><br><span class="line">[  4]  6.0- 7.0 sec  3.88 MBytes  32.5 Mbits/sec</span><br><span class="line">[  4]  7.0- 8.0 sec  4.12 MBytes  34.6 Mbits/sec</span><br><span class="line">[  4]  8.0- 9.0 sec  3.75 MBytes  31.5 Mbits/sec</span><br><span class="line">[  4]  9.0-10.0 sec  4.50 MBytes  37.7 Mbits/sec</span><br><span class="line">[  4]  0.0-10.0 sec  37.1 MBytes  31.1 Mbits/sec</span><br></pre></td></tr></table></figure>
+<h2 id="테스트-결과-읽기"><a href="#테스트-결과-읽기" class="headerlink" title="테스트 결과 읽기"></a>테스트 결과 읽기</h2><ol>
+<li><code>Interval</code>: 호출한 시간 간격</li>
+<li><code>Transfer</code>: 전송한 데이터 사이즈</li>
+<li><code>Bandwidth</code>: 측정된 대역폭(주의: 단위가 Mbits 임. Mbits / 8 === MB)</li>
+</ol>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><p><a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a><br><a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">AWS ec2 인스턴스 타입</a><br><a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/08/24/ts-ios-wifi-webkit-error/">
+                ts-ios-wifi-webkit-error
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-24</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2017/08/24/ts-ios-wifi-webkit-error/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="Trouble-Shooting-iOS-WiFi-parse-error"><a href="#Trouble-Shooting-iOS-WiFi-parse-error" class="headerlink" title="[Trouble Shooting] iOS WiFi parse error"></a>[Trouble Shooting] iOS WiFi parse error</h1><h2 id="증상"><a href="#증상" class="headerlink" title="증상"></a>증상</h2><ol>
+<li>iOS 사파리에서 <a href="https://www.thegajago.com" target="_blank" rel="noopener">가자고</a> 사이트를 열면 <code>오류: WebKit에 내부 오류 발생</code>이라고 보여진다.<ul>
+<li><img src="/2017/08/24/ts-ios-wifi-webkit-error/webkit-error.png" title="우리는 항상 빠른 속도를 원한다."></li>
+</ul>
+</li>
+<li>사이트의 반응이 매우 느리며 불특정 페이지에서 발생한다.</li>
+<li>WiFi 연결일때만 발생하며 LTE 연결인 경우 오류가 발생하지 않는다.</li>
+<li>iOS 10.2 버전 업데이트 이후부터 발생된다.</li>
+</ol>
+<h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><ol>
+<li>iOS WiFi 연결상태에서 gzip decoding에 뭔가 문제가 있는것 같다.<ul>
+<li>사실 정확한 원인 및 문서를 찾지 못했다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="해결책"><a href="#해결책" class="headerlink" title="해결책"></a>해결책</h2><ol>
+<li>gzip 옵션을 off 한다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    gzip on; // -&gt; off</span><br><span class="line">    gzip_types text/plain application/xml text/css text/js text/xml application/x-javascript text/javascript application/json appplication/xml+rss;</span><br><span class="line">    gzip_http_version 1.1;</span><br><span class="line">    gzip_disable &quot;MSIE [1-6] \.&quot;;</span><br><span class="line">    gzip_vary on;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="남아있는-과제"><a href="#남아있는-과제" class="headerlink" title="남아있는 과제"></a>남아있는 과제</h2><ol>
+<li>nginx gzip 모듈 버전을 업데이트하면 괜찮지 않을까?</li>
+<li>gzip을 iOS에서만 off 하도록 gzip_disable 값을 셋팅하자.</li>
+</ol>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><ul>
+<li>없음</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/08/24/ts-spring-session-oome/">
+                ts-spring-session-oome
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-24</span>
+            
+            
+                <a href="https://hyunjun19.github.io/2017/08/24/ts-spring-session-oome/#disqus_thread" class="comments article-comment-link">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="Trouble-Shooting-spring-session-OOME"><a href="#Trouble-Shooting-spring-session-OOME" class="headerlink" title="[Trouble Shooting] spring-session OOME"></a>[Trouble Shooting] spring-session OOME</h1><h2 id="증상"><a href="#증상" class="headerlink" title="증상"></a>증상</h2><ol>
+<li>2번 서버가 OutOfMemoryError로 갑자기 죽어버렸음</li>
+<li>KT 로드밸런서가 2번 서버로 계속 요청을 보냄</li>
+<li>사용자의 요청이 1번 서버로만 간 경우 정상적으로 서비스를 이용</li>
+<li>사용자의 요청이 2번으로 하나라도 가면 API의 응답을 받지 못함</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2017-08-04 19:40:51 [gajago-front] [redisMessageListenerContainer-1] ERROR org.springframework.data.redis.listener.RedisMessageListenerContainer:handleSubscriptionException:648 - SubscriptionTask aborted with exception:</span><br><span class="line">java.lang.OutOfMemoryError: unable to create new native thread</span><br><span class="line">        at java.lang.Thread.start0(Native Method)</span><br><span class="line">        at java.lang.Thread.start(Thread.java:714)</span><br><span class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.doExecute(SimpleAsyncTaskExecutor.java:213)</span><br><span class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.execute(SimpleAsyncTaskExecutor.java:171)</span><br><span class="line">        at org.springframework.core.task.SimpleAsyncTaskExecutor.execute(SimpleAsyncTaskExecutor.java:151)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer.dispatchMessage(RedisMessageListenerContainer.java:958)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer.access$1400(RedisMessageListenerContainer.java:71)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$DispatchMessageListener.onMessage(RedisMessageListenerContainer.java:949)</span><br><span class="line">        at org.springframework.data.redis.connection.jedis.JedisMessageListener.onPMessage(JedisMessageListener.java:43)</span><br><span class="line">        at redis.clients.jedis.BinaryJedisPubSub.process(BinaryJedisPubSub.java:109)</span><br><span class="line">        at redis.clients.jedis.BinaryJedisPubSub.proceedWithPatterns(BinaryJedisPubSub.java:75)</span><br><span class="line">        at redis.clients.jedis.BinaryJedis.psubscribe(BinaryJedis.java:2953)</span><br><span class="line">        at org.springframework.data.redis.connection.jedis.JedisConnection.pSubscribe(JedisConnection.java:2959)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$SubscriptionTask.eventuallyPerformSubscription(RedisMessageListenerContainer.java:773)</span><br><span class="line">        at org.springframework.data.redis.listener.RedisMessageListenerContainer$SubscriptionTask.run(RedisMessageListenerContainer.java:740)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:745)</span><br><span class="line">Exception in thread &quot;http-apr-10090-Acceptor-0&quot; java.lang.OutOfMemoryError: unable to create new native thread</span><br><span class="line">        at java.lang.Thread.start0(Native Method)</span><br><span class="line">        at java.lang.Thread.start(Thread.java:714)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:950)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1368)</span><br><span class="line">        at org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:161)</span><br><span class="line">        at org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:141)</span><br><span class="line">        at org.apache.catalina.core.StandardThreadExecutor.execute(StandardThreadExecutor.java:169)</span><br><span class="line">        at org.apache.tomcat.util.net.AprEndpoint.processSocketWithOptions(AprEndpoint.java:909)</span><br><span class="line">        at org.apache.tomcat.util.net.AprEndpoint$Acceptor.run(AprEndpoint.java:1086)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:745)</span><br></pre></td></tr></table></figure>
+<h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><ol>
+<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="noopener">spring-session</a>에서 [spring-data-redis]를 사용할 때 <a href="https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/listener/RedisMessageListenerContainer.java#L97" target="_blank" rel="noopener">RedisMessageListenerContainer의 taskExecutor</a>에 별도의 값을 설정하지 않아서 <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java" target="_blank" rel="noopener">SimpleAsyncTaskExecutor</a>를 사용하고 있음</li>
+<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html" target="_blank" rel="noopener">SimpleAsyncTaskExecutor 문서</a>에서 이 클래스는 쓰레드를 재사용하지 않으니 실행시간이 짧은 많은 수의 작업에는 사용하지 말라고 권장하고 있음<ul>
+<li><code>NOTE: This implementation does not reuse threads! Consider a thread-pooling TaskExecutor implementation instead, in particular for executing a large number of short-lived tasks.</code></li>
+</ul>
+</li>
+<li>spring-session에서 세션정보에 접근하기 위해서 redis를 사용할 때 마다 Thread가 매번 생성됨</li>
+<li>접속량이 많이지게 되면 <code>OutOfMemoryError</code> 발생</li>
+</ol>
+<h2 id="해결책"><a href="#해결책" class="headerlink" title="해결책"></a>해결책</h2><ol>
+<li>SimpleAsyncTaskExecutor 대신에 ThreadPool을 사용할 수 있도록 지정한다</li>
+<li>하지만 지금 사용중인 <code>spring-session-1.0.2.RELEASE</code> 버전에서는 taskExecutor를 별도로 지정할 수 있는 방법이 없음</li>
+<li>결국 <code>spring-session-1.3.1.RELEASE</code> 버전으로 업데이트</li>
+<li><a href="https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92" target="_blank" rel="noopener">패치된 내용</a>을 바탕으로 <code>springSessionRedisTaskExecutor</code>를 지정</li>
+<li><code>springSessionRedisTaskExecutor</code>를 지정하면 일어나는 일<ol>
+<li><code>springSessionRedisTaskExecutor</code>를 지정하면 <code>RedisHttpSessionConfiguration.redisTaskExecutor</code>에 지정한 <code>springSessionRedisTaskExecutor</code>가 할당 됨 <a href="https://github.com/spring-projects/spring-session/blob/master/spring-session-data-redis/src/main/java/org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.java#L203" target="_blank" rel="noopener">소스코드</a></li>
+<li><code>RedisMessageListenerContainer.taskExecutor</code>에 <code>RedisHttpSessionConfiguration.redisTaskExecutor</code>가 할당 됨 <a href="https://github.com/spring-projects/spring-session/blob/master/spring-session-data-redis/src/main/java/org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.java#L93" target="_blank" rel="noopener">소스코드</a></li>
+<li>spring-session에서 redis를 사용할 때 <code>springSessionRedisTaskExecutor</code>를 사용하게 됨 <a href="https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/listener/RedisMessageListenerContainer.java#L961" target="_blank" rel="noopener">소스코드</a></li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FrontSessionConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Executor <span class="title">springSessionRedisTaskExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ThreadFactory threadFactory = <span class="keyword">new</span> ThreadFactory() &#123;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">int</span> threadCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Thread <span class="title">newThread</span><span class="params">(Runnable runnable)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Thread(runnable, String.format(<span class="string">"gajago-session-redis-%d"</span>, ++threadCount));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Executors.newCachedThreadPool(threadFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="남아있는-과제"><a href="#남아있는-과제" class="headerlink" title="남아있는 과제"></a>남아있는 과제</h2><ol>
+<li>왜 1번 서버는 안 죽고 2번 서버만 죽었을까?</li>
+<li>KT 로드밸런서가 왜 2번 서버로 계속 요청을 보냈을까?</li>
+<li>캐시로 사용하고 있는 redis의 taskExecutor는?</li>
+</ol>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><ul>
+<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="noopener">https://github.com/spring-projects/spring-session</a></li>
+<li><a href="https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92" target="_blank" rel="noopener">https://github.com/tsachev/spring-session/commit/6604bf180221028aff47f999418c0d48db72fb92</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java" target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/blob/master/spring-core/src/main/java/org/springframework/core/task/SimpleAsyncTaskExecutor.java</a></li>
+<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/task/SimpleAsyncTaskExecutor.html</a></li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/23/package-lock-why-need/">package-lock.json은 왜 필요할까</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/hyunjun19">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:hyunjun19@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'hyunjun19-blog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

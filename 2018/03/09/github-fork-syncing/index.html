@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="저는 종종 오픈소스를 포크(fork)한 후 수정해서 pull request를 보내거나 개인적으로 사용하고 있습니다.하지만 원본 저장소의 변경 내용을 포크(fork)한 제 저장소에 반영할 때 마다 방법을 잊어버려서 기록으로 남겨둡니다.
+절차
+원본 저장소를 원본 저장소라고">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="HJ.Park">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="포크한 깃허브 저장소를 원본 저장소와 동기화 하기"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="개발새발"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>포크한 깃허브 저장소를 원본 저장소와 동기화 하기 - 개발새발</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/03/09/github-fork-syncing/">
+                포크한 깃허브 저장소를 원본 저장소와 동기화 하기
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-03-09</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>저는 종종 오픈소스를 포크(fork)한 후 수정해서 pull request를 보내거나 개인적으로 사용하고 있습니다.<br>하지만 원본 저장소의 변경 내용을 포크(fork)한 제 저장소에 반영할 때 마다 방법을 잊어버려서 기록으로 남겨둡니다.</p>
+<h2 id="절차"><a href="#절차" class="headerlink" title="절차"></a>절차</h2><ul>
+<li>원본 저장소를 <strong>원본 저장소</strong>라고 하겠습니다.</li>
+<li>제가 포크한 저장소를 앞으로는 <strong>포크 저장소</strong>라고 하겠습니다.</li>
+</ul>
+<ol>
+<li>로컬로 <strong>포크 저장소</strong>를 clone 합니다.</li>
+<li>로컬에 있는 <strong>포크 저장소</strong>에 리모트를 설정해 줍니다.</li>
+<li><strong>포크 저장소</strong>에 <strong>원본 저장소</strong>를 머지합니다.</li>
+</ol>
+<h2 id="실전-CLI"><a href="#실전-CLI" class="headerlink" title="실전 CLI"></a>실전 CLI</h2><ul>
+<li><strong>원본 저장소</strong> =&gt; <a href="https://github.com/ax5ui/ax5ui-kernel" target="_blank" rel="noopener">https://github.com/ax5ui/ax5ui-kernel</a></li>
+<li><strong>포크 저장소</strong> =&gt; <a href="https://github.com/hyunjun19/ax5ui-kernel.git" target="_blank" rel="noopener">https://github.com/hyunjun19/ax5ui-kernel.git</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// 포크 저장소를 로컬로 클론</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line"></span><br><span class="line">// 로컬 저장소로 이동</span><br><span class="line">$ <span class="built_in">cd</span> ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 현재 설정된 리모트 저장소 조회</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 추가</span><br><span class="line">$ git remote add upstream https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 확인</span><br><span class="line">$ git remote -v</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (fetch)</span><br><span class="line">origin	https://github.com/hyunjun19/ax5ui-kernel.git (push)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (fetch)</span><br><span class="line">upstream	https://github.com/ax5ui/ax5ui-kernel (push)</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 fetch</span><br><span class="line">$ git fetch upstream</span><br><span class="line">remote: Counting objects: 793, <span class="keyword">done</span>.</span><br><span class="line">remote: Total 793 (delta 692), reused 692 (delta 692), pack-reused 101</span><br><span class="line">Receiving objects: 100% (793/793), 215.62 KiB | 144.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (717/717), completed with 127 <span class="built_in">local</span> objects.</span><br><span class="line">From https://github.com/ax5ui/ax5ui-kernel</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 리모트 저장소 merge</span><br><span class="line">$ git merge upstream/master</span><br><span class="line">Updating 9cdedc67..92c52dab</span><br><span class="line">Fast-forward</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">// 포크 저장소로 push</span><br><span class="line">$ git push</span><br><span class="line">Counting objects: 791, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (141/141), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (791/791), 212.18 KiB | 53.05 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Total 791 (delta 710), reused 723 (delta 650)</span><br><span class="line">remote: Resolving deltas: 100% (710/710), completed with 99 <span class="built_in">local</span> objects.</span><br><span class="line">To https://github.com/hyunjun19/ax5ui-kernel.git</span><br><span class="line">   9cdedc67..92c52dab  master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>끄~~~읏</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/23/package-lock-why-need/">package-lock.json은 왜 필요할까</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/hyunjun19">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:hyunjun19@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'hyunjun19-blog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

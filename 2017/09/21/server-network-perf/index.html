@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="서버 네트워크 속도(대역폭) 측정하기
+AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.[2017-09-23] 정">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="HJ.Park">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="server-network-perf"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="개발새발"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>server-network-perf - 개발새발</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/09/21/server-network-perf/">
+                server-network-perf
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-21</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="서버-네트워크-속도-대역폭-측정하기"><a href="#서버-네트워크-속도-대역폭-측정하기" class="headerlink" title="서버 네트워크 속도(대역폭) 측정하기"></a>서버 네트워크 속도(대역폭) 측정하기</h1><img src="/2017/09/21/server-network-perf/highway-393492_1920.jpg" title="우리는 항상 빠른 속도를 원한다.">
+<p>AWS는 <a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">EC2 인스턴스 타입</a>별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.<br>아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.<br><strong><strong><em>[2017-09-23] 정정합니다. <a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a>을 보면 대역폭이 나와있습니다. 하지만 T2 인스턴스는 해당 표에 없습니다.</em></strong></strong></p>
+<p>어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록 하겠습니다.<br>측정 도구로는 <a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a>를 사용하도록 하겠습니다.</p>
+<h2 id="준비물"><a href="#준비물" class="headerlink" title="준비물"></a>준비물</h2><ol>
+<li>클라이언트 PC 1대(간단하게 그냥 Macbook Pro와 일반 가정용 인터넷을 사용했습니다.)</li>
+<li>서버(AWS EC2 t2.medium) 1대</li>
+</ol>
+<h2 id="iperf-설치하기"><a href="#iperf-설치하기" class="headerlink" title="iperf 설치하기"></a>iperf 설치하기</h2><ol>
+<li>클라이언트<ol>
+<li><code>$ brew install iperf</code></li>
+</ol>
+</li>
+<li>서버<ol>
+<li><code>$ sudo yum install iperf</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="iperf-테스트하기"><a href="#iperf-테스트하기" class="headerlink" title="iperf 테스트하기"></a>iperf 테스트하기</h2><ol>
+<li>서버<ol>
+<li><code>$ iperf -s</code></li>
+<li>옵션설명<ul>
+<li>-s: iperf가 서버모드로 실행됩니다.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>클라이언트<ol>
+<li><code>$ iperf -c ${SERVER_IP} -i 1 -t 10</code></li>
+<li>옵션설명<ul>
+<li>-c: 클라이언트 모드로 실행</li>
+<li>${SERVER_IP}: 테스트할 서버의 IP</li>
+<li>-i 1: 반복 시간 간격(초단위)</li>
+<li>-t: 테스트할 시간(초단위)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="서버로그"><a href="#서버로그" class="headerlink" title="서버로그"></a>서버로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ iperf -s</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Server listening on TCP port 5001</span><br><span class="line">TCP window size: 85.3 KByte (default)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">[  4] local 172.31.25.62 port 5001 connected with 115.140.62.214 port 56015</span><br><span class="line">[ ID] Interval       Transfer     Bandwidth</span><br><span class="line">[  4]  0.0-10.1 sec  29.3 MBytes  24.2 Mbits/sec</span><br></pre></td></tr></table></figure>
+<h3 id="클라이언트-로그"><a href="#클라이언트-로그" class="headerlink" title="클라이언트 로그"></a>클라이언트 로그</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ iperf -c ###.###.###.### -i 1 -t 10</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Client connecting to ###.###.###.###, TCP port 5001</span><br><span class="line">TCP window size:  129 KByte (default)</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">[  4] local 192.168.219.121 port 61977 connected with ###.###.###.### port 5001</span><br><span class="line">[ ID] Interval       Transfer     Bandwidth</span><br><span class="line">[  4]  0.0- 1.0 sec  4.00 MBytes  33.6 Mbits/sec</span><br><span class="line">[  4]  1.0- 2.0 sec  3.38 MBytes  28.3 Mbits/sec</span><br><span class="line">[  4]  2.0- 3.0 sec  3.38 MBytes  28.3 Mbits/sec</span><br><span class="line">[  4]  3.0- 4.0 sec  3.50 MBytes  29.4 Mbits/sec</span><br><span class="line">[  4]  4.0- 5.0 sec  2.38 MBytes  19.9 Mbits/sec</span><br><span class="line">[  4]  5.0- 6.0 sec  4.12 MBytes  34.6 Mbits/sec</span><br><span class="line">[  4]  6.0- 7.0 sec  3.88 MBytes  32.5 Mbits/sec</span><br><span class="line">[  4]  7.0- 8.0 sec  4.12 MBytes  34.6 Mbits/sec</span><br><span class="line">[  4]  8.0- 9.0 sec  3.75 MBytes  31.5 Mbits/sec</span><br><span class="line">[  4]  9.0-10.0 sec  4.50 MBytes  37.7 Mbits/sec</span><br><span class="line">[  4]  0.0-10.0 sec  37.1 MBytes  31.1 Mbits/sec</span><br></pre></td></tr></table></figure>
+<h2 id="테스트-결과-읽기"><a href="#테스트-결과-읽기" class="headerlink" title="테스트 결과 읽기"></a>테스트 결과 읽기</h2><ol>
+<li><code>Interval</code>: 호출한 시간 간격</li>
+<li><code>Transfer</code>: 전송한 데이터 사이즈</li>
+<li><code>Bandwidth</code>: 측정된 대역폭(주의: 단위가 Mbits 임. Mbits / 8 === MB)</li>
+</ol>
+<h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><p><a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a><br><a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">AWS ec2 인스턴스 타입</a><br><a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/23/package-lock-why-need/">package-lock.json은 왜 필요할까</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/hyunjun19">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:hyunjun19@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'hyunjun19-blog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>
