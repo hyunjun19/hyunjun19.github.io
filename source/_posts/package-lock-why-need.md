@@ -1,8 +1,10 @@
 ---
 title: package-lock.json은 왜 필요할까?
 date: 2018-03-23 11:07:58
-tags:
+tags: npm, package.json, package-lock.json, dependency
 ---
+
+{% asset_img 'npm-ls.png' 'npm ls' %}
 
 # package-lock.json은 왜 필요할까?
 
@@ -50,7 +52,7 @@ tags:
 
 ## package-lock.json이 필요한 이유
 
-``package-lock.json`` 파일의 의존성 선언에는 ``version range``가 사용됩니다. ``version range``란 특정 버전이 아니라 버전의 범위를 의미합니다.
+``package.json`` 파일의 의존성 선언에는 ``version range``가 사용됩니다. ``version range``란 특정 버전이 아니라 버전의 범위를 의미합니다.
 가장 흔한 예로 ``npm install express``를 실행하게 되면 ``package.json`` 파일에는 "^4.16.3"([Caret Ranges](https://github.com/npm/node-semver#caret-ranges-123-025-004))로 버전 범위가 추가됩니다.
 
 저 ``package.json`` 파일로 ``npm install``을 실행하면 현재는 4.16.3 버전이 설치되지만 ``express``의 새로운 minor, patch가 publish 되면 동일한 ``package.json`` 파일로 ``npm install``을 실행해도 4.17.3, 이나 4.16.4 같은 업데이트된 버전이 설치됩니다.

@@ -144,7 +144,7 @@
                 <span class="date">2018-03-23</span>
             
             
-                <a href="https://hyunjun19.github.io/2018/03/23/package-lock-why-need/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2018/03/23/package-lock-why-need/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
@@ -152,11 +152,12 @@
 
     
         <div class="content">
-            <h1 id="package-lock-json은-왜-필요할까"><a href="#package-lock-json은-왜-필요할까" class="headerlink" title="package-lock.json은 왜 필요할까?"></a>package-lock.json은 왜 필요할까?</h1><p>어느 날 부터 인가 npm을 사용하면 <code>package-lock.json</code> 파일이 같이 생기기 시작했습니다.<br>이 파일의 정체가 궁금했지만 바쁘다는 핑계로 넘어가기를 몇 차례… 이제서야 <code>package-lock.json</code> 파일이 왜 생겼는지 찾아 보았습니다.</p>
+            <img src="/2018/03/23/package-lock-why-need/npm-ls.png" title="npm ls">
+<h1 id="package-lock-json은-왜-필요할까"><a href="#package-lock-json은-왜-필요할까" class="headerlink" title="package-lock.json은 왜 필요할까?"></a>package-lock.json은 왜 필요할까?</h1><p>어느 날 부터 인가 npm을 사용하면 <code>package-lock.json</code> 파일이 같이 생기기 시작했습니다.<br>이 파일의 정체가 궁금했지만 바쁘다는 핑계로 넘어가기를 몇 차례… 이제서야 <code>package-lock.json</code> 파일이 왜 생겼는지 찾아 보았습니다.</p>
 <h2 id="package-lock-json-파일이란"><a href="#package-lock-json-파일이란" class="headerlink" title="package-lock.json 파일이란"></a><code>package-lock.json</code> 파일이란</h2><p><code>package-lock.json</code> 파일은 npm을 사용해서  <code>node_modules</code> 트리나 <code>package.json</code> 파일을 수정하게 되면 자동으로 생성되는 파일입니다.<br>이 파일은 파일이 생성되는 시점의 의존성 트리에 대한 정확한 정보를 가지고 있습니다.</p>
 <p>아래는 <code>package-lock.json</code> 파일의 일부입니다.</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"db-http-proxy"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</span><br><span class="line">  <span class="attr">"lockfileVersion"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"requires"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    ...</span><br><span class="line">    "abbrev": &#123;</span><br><span class="line">      "version": "1.1.1",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",</span><br><span class="line">      "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="</span><br><span class="line">    &#125;,</span><br><span class="line">    "abstract-logging": &#123;</span><br><span class="line">      "version": "1.0.0",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/abstract-logging/-/abstract-logging-1.0.0.tgz",</span><br><span class="line">      "integrity": "sha1-i33q/TEFWbwo93ck3RuzAXcnjBs="</span><br><span class="line">    &#125;,</span><br><span class="line">    "accept": &#123;</span><br><span class="line">      "version": "3.0.2",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/accept/-/accept-3.0.2.tgz",</span><br><span class="line">      "integrity": "sha512-bghLXFkCOsC1Y2TZ51etWfKDs6q249SAoHTZVfzWWdlZxoij+mgkj9AmUJWQpDY48TfnrTDIe43Xem4zdMe7mQ==",</span><br><span class="line">      "requires": &#123;</span><br><span class="line">        "boom": "7.2.0",</span><br><span class="line">        "hoek": "5.0.3"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="package-lock-json이-필요한-이유"><a href="#package-lock-json이-필요한-이유" class="headerlink" title="package-lock.json이 필요한 이유"></a>package-lock.json이 필요한 이유</h2><p><code>package-lock.json</code> 파일의 의존성 선언에는 <code>version range</code>가 사용됩니다. <code>version range</code>란 특정 버전이 아니라 버전의 범위를 의미합니다.<br>가장 흔한 예로 <code>npm install express</code>를 실행하게 되면 <code>package.json</code> 파일에는 “^4.16.3”(<a href="https://github.com/npm/node-semver#caret-ranges-123-025-004" target="_blank" rel="noopener">Caret Ranges</a>)로 버전 범위가 추가됩니다.</p>
+<h2 id="package-lock-json이-필요한-이유"><a href="#package-lock-json이-필요한-이유" class="headerlink" title="package-lock.json이 필요한 이유"></a>package-lock.json이 필요한 이유</h2><p><code>package.json</code> 파일의 의존성 선언에는 <code>version range</code>가 사용됩니다. <code>version range</code>란 특정 버전이 아니라 버전의 범위를 의미합니다.<br>가장 흔한 예로 <code>npm install express</code>를 실행하게 되면 <code>package.json</code> 파일에는 “^4.16.3”(<a href="https://github.com/npm/node-semver#caret-ranges-123-025-004" target="_blank" rel="noopener">Caret Ranges</a>)로 버전 범위가 추가됩니다.</p>
 <p>저 <code>package.json</code> 파일로 <code>npm install</code>을 실행하면 현재는 4.16.3 버전이 설치되지만 <code>express</code>의 새로운 minor, patch가 publish 되면 동일한 <code>package.json</code> 파일로 <code>npm install</code>을 실행해도 4.17.3, 이나 4.16.4 같은 업데이트된 버전이 설치됩니다.</p>
 <p>물론 대부분의 경우에는 문제가 없지만 간혹 업데이트된 버전이 오류를 발생시키는 경우가 있습니다.</p>
 <p><code>package-lock.json</code> 파일은 의존성 트리에 대한 정보를 가지고 있으며 <code>package-lock.json</code> 파일이 작성된 시점의 의존성 트리가 다시 생성될 수 있도록 보장합니다.</p>
@@ -213,7 +214,7 @@
                 <span class="date">2018-03-09</span>
             
             
-                <a href="https://hyunjun19.github.io/2018/03/09/github-fork-syncing/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2018/03/09/github-fork-syncing/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
@@ -257,7 +258,7 @@
                 <span class="date">2018-02-19</span>
             
             
-                <a href="https://hyunjun19.github.io/2018/02/19/node-js-at-scale-node-js-garbage-collection/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2018/02/19/node-js-at-scale-node-js-garbage-collection/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
@@ -339,7 +340,7 @@
                 <span class="date">2017-09-23</span>
             
             
-                <a href="https://hyunjun19.github.io/2017/09/23/how-cookie-works/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2017/09/23/how-cookie-works/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
@@ -426,7 +427,7 @@
                 <span class="date">2017-09-21</span>
             
             
-                <a href="https://hyunjun19.github.io/2017/09/21/server-network-perf/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2017/09/21/server-network-perf/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
@@ -500,7 +501,7 @@
                 <span class="date">2017-08-24</span>
             
             
-                <a href="https://hyunjun19.github.io/2017/08/24/ts-ios-wifi-webkit-error/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2017/08/24/ts-ios-wifi-webkit-error/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
@@ -554,7 +555,7 @@
                 <span class="date">2017-08-24</span>
             
             
-                <a href="https://hyunjun19.github.io/2017/08/24/ts-spring-session-oome/#disqus_thread" class="comments article-comment-link">Comments</a>
+                <a href="https://hyunjun19.github.io/2017/08/24/ts-spring-session-oome/#disqus_thread" class="comments article-comment-link">Kommentare</a>
             
             
         </div>
