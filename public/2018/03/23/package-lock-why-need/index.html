@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="package-lock.json은 왜 필요할까?어느 날 부터 인가 npm을 사용하면 package-lock.json 파일이 같이 생기기 시작했습니다.이 파일의 정체가 궁금했지만 바쁘다는 핑계로 넘어가기를 몇 차례… 이제서야 package-lock.json 파일이 왜 생">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="HJ.Park">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="package-lock.json은 왜 필요할까?"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="개발새발"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>package-lock.json은 왜 필요할까? - 개발새발</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/03/23/package-lock-why-need/">
+                package-lock.json은 왜 필요할까?
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-03-23</span>
+            
+            
+                <a href="#disqus_thread" class="comments">Comments</a>
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="package-lock-json은-왜-필요할까"><a href="#package-lock-json은-왜-필요할까" class="headerlink" title="package-lock.json은 왜 필요할까?"></a>package-lock.json은 왜 필요할까?</h1><p>어느 날 부터 인가 npm을 사용하면 <code>package-lock.json</code> 파일이 같이 생기기 시작했습니다.<br>이 파일의 정체가 궁금했지만 바쁘다는 핑계로 넘어가기를 몇 차례… 이제서야 <code>package-lock.json</code> 파일이 왜 생겼는지 찾아 보았습니다.</p>
+<h2 id="package-lock-json-파일이란"><a href="#package-lock-json-파일이란" class="headerlink" title="package-lock.json 파일이란"></a><code>package-lock.json</code> 파일이란</h2><p><code>package-lock.json</code> 파일은 npm을 사용해서  <code>node_modules</code> 트리나 <code>package.json</code> 파일을 수정하게 되면 자동으로 생성되는 파일입니다.<br>이 파일은 파일이 생성되는 시점의 의존성 트리에 대한 정확한 정보를 가지고 있습니다.</p>
+<p>아래는 <code>package-lock.json</code> 파일의 일부입니다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"db-http-proxy"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</span><br><span class="line">  <span class="attr">"lockfileVersion"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"requires"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    ...</span><br><span class="line">    "abbrev": &#123;</span><br><span class="line">      "version": "1.1.1",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",</span><br><span class="line">      "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="</span><br><span class="line">    &#125;,</span><br><span class="line">    "abstract-logging": &#123;</span><br><span class="line">      "version": "1.0.0",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/abstract-logging/-/abstract-logging-1.0.0.tgz",</span><br><span class="line">      "integrity": "sha1-i33q/TEFWbwo93ck3RuzAXcnjBs="</span><br><span class="line">    &#125;,</span><br><span class="line">    "accept": &#123;</span><br><span class="line">      "version": "3.0.2",</span><br><span class="line">      "resolved": "https://registry.npmjs.org/accept/-/accept-3.0.2.tgz",</span><br><span class="line">      "integrity": "sha512-bghLXFkCOsC1Y2TZ51etWfKDs6q249SAoHTZVfzWWdlZxoij+mgkj9AmUJWQpDY48TfnrTDIe43Xem4zdMe7mQ==",</span><br><span class="line">      "requires": &#123;</span><br><span class="line">        "boom": "7.2.0",</span><br><span class="line">        "hoek": "5.0.3"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="package-lock-json이-필요한-이유"><a href="#package-lock-json이-필요한-이유" class="headerlink" title="package-lock.json이 필요한 이유"></a>package-lock.json이 필요한 이유</h2><p><code>package-lock.json</code> 파일의 의존성 선언에는 <code>version range</code>가 사용됩니다. <code>version range</code>란 특정 버전이 아니라 버전의 범위를 의미합니다.<br>가장 흔한 예로 <code>npm install express</code>를 실행하게 되면 <code>package.json</code> 파일에는 “^4.16.3”(<a href="https://github.com/npm/node-semver#caret-ranges-123-025-004" target="_blank" rel="noopener">Caret Ranges</a>)로 버전 범위가 추가됩니다.</p>
+<p>저 <code>package.json</code> 파일로 <code>npm install</code>을 실행하면 현재는 4.16.3 버전이 설치되지만 <code>express</code>의 새로운 minor, patch가 publish 되면 동일한 <code>package.json</code> 파일로 <code>npm install</code>을 실행해도 4.17.3, 이나 4.16.4 같은 업데이트된 버전이 설치됩니다.</p>
+<p>물론 대부분의 경우에는 문제가 없지만 간혹 업데이트된 버전이 오류를 발생시키는 경우가 있습니다.</p>
+<p><code>package-lock.json</code> 파일은 의존성 트리에 대한 정보를 가지고 있으며 <code>package-lock.json</code> 파일이 작성된 시점의 의존성 트리가 다시 생성될 수 있도록 보장합니다.</p>
+<p>아래 시나리오를 통해서 설명하겠습니다.</p>
+<h3 id="시나리오-1-package-lock-json-파일을-소스-저장소에-커밋하지-않은-경우"><a href="#시나리오-1-package-lock-json-파일을-소스-저장소에-커밋하지-않은-경우" class="headerlink" title="시나리오 1: package-lock.json 파일을 소스 저장소에 커밋하지 않은 경우"></a>시나리오 1: package-lock.json 파일을 소스 저장소에 커밋하지 않은 경우</h3><ol>
+<li>박과장이 npm으로 프로젝트를 만들어서 git에 소스코드를 push 합니다. 이 때 node_modules 폴더를 제외하고 package.json 파일만 커밋합니다.</li>
+<li>김대리는 소스 코드를 pull 하고 <code>npm install</code>을 실행합니다.</li>
+<li>의존성 트리의 일부 버전이 박대리와 다르게 설치됩니다.</li>
+<li>프로그램 실행시 오류가 발생합니다.</li>
+<li>김대리는 오늘도 야근을 합니다.</li>
+</ol>
+<h3 id="시나리오-2-package-lock-json-파일을-소스-저장소에-커밋한-경우"><a href="#시나리오-2-package-lock-json-파일을-소스-저장소에-커밋한-경우" class="headerlink" title="시나리오 2: package-lock.json 파일을 소스 저장소에 커밋한 경우"></a>시나리오 2: package-lock.json 파일을 소스 저장소에 커밋한 경우</h3><ol>
+<li>박과장이 npm으로 프로젝트를 만들어서 git에 소스코드를 push 합니다. 이 때 node_modules 폴더를 제외하고 package.json 파일과 package-lock.json 파일을 같이 커밋합니다.</li>
+<li>김대리는 소스 코드를 pull 하고 <code>npm install</code>을 실행합니다.</li>
+<li>의존성 트리가 박대리가 셋팅한 환경과 동일하게 설치됩니다.</li>
+<li>프로그램이 정상적으로 실행됩니다.</li>
+<li>김대리는 정시 퇴근을 합니다.</li>
+</ol>
+<blockquote>
+<p>실제로 가자고 앱에서 사용하고 있는 <code>react-native-router-flux</code>를 예로 들어볼까요?<br>아래는 프로젝트에서 <code>npm ls</code>로 조회한 의존성 트리에서 <code>react-native-router-flux</code> 부분만 발췌한 부분입니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├─┬ react-native-router-flux@4.0.0-beta.24</span><br><span class="line">│ ├── lodash.isequal@4.5.0</span><br><span class="line">│ ├── mobx@3.6.2</span><br><span class="line">│ ├─┬ mobx-react@4.4.3</span><br><span class="line">│ │ └── hoist-non-react-statics@2.5.0</span><br><span class="line">│ ├── opencollective@1.0.3</span><br><span class="line">│ ├── path-to-regexp@2.2.0</span><br><span class="line">│ ├── prop-types@15.6.1]</span><br><span class="line">│ └── react-navigation@1.0.0-beta.19</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p><code>package.json</code> 파일에 버전을 <code>&quot;react-native-router-flux&quot;: &quot;4.0.0-beta.24&quot;</code> 지정해도 <code>react-native-router-flux</code> 프로젝트 내부의 package.json 파일에 <code>react-navigation</code>이 Caret Range로 선언되어 있기 때문에 <code>react-navigation</code>의 버전은 <code>npm install</code>을 수행하는 시점에 따라서 달라집니다.<br>실제로 문제가 있는 <code>react-navigation</code> 1.0.0-beta21 버전이 릴리즈 된 이후 앱 빌드가 실패해서 <a href="https://github.com/aksonov/react-native-router-flux/issues/2865" target="_blank" rel="noopener">이슈</a>가 되기도 했습니다.(<del>저도 덕분에 야근을 했습니다.</del>)<br>결국 react-native-router-flux 개발자가 <a href="https://github.com/aksonov/react-native-router-flux/commit/37c6553c168b9fb6947a5e533df9bd37793f1f68#diff-b9cfc7f2cdf78a7f4b91a753d10865a2" target="_blank" rel="noopener">Caret Range를 제거하는 패치</a>를 했습니다.</p>
+</blockquote>
+<p><code>package-lock.json</code> 파일은 npm에 의해서 프로젝트의 <code>node_modules</code>나 <code>package.json</code>이 수정되는 경우 생성되거나 업데이트되며 <strong>당시 의존성에 대한 정보를 모두 가지고 있습니다.</strong></p>
+<p>따라서 생성된 <code>package-lock.json</code> 파일은 소스 저장소에 커밋해야 합니다.(반드시 커밋할 필요는 없지만 저장소에 커밋하는 것을 강력추천합니다.)</p>
+<h2 id="요약"><a href="#요약" class="headerlink" title="요약"></a>요약</h2><ol>
+<li><code>package-lock.json</code> 파일은 의존성 트리에 대한 정보를 모두 가지고 있습니다.</li>
+<li><code>package-lock.json</code> 파일은 저장소에 꼭 같이 커밋해야 합니다.</li>
+<li><code>package-lock.json</code> 파일은 <code>node_modules</code> 없이 배포하는 경우 반드시 필요합니다.</li>
+</ol>
+<h2 id="참고자료"><a href="#참고자료" class="headerlink" title="참고자료"></a>참고자료</h2><ul>
+<li><code>package.json</code>에서 사용되는 <code>version range</code> - <a href="https://github.com/npm/node-semver" target="_blank" rel="noopener">https://github.com/npm/node-semver</a></li>
+<li>npm 5 버전 릴리즈 노트 - <a href="https://github.com/npm/npm/releases/tag/v5.0.0" target="_blank" rel="noopener">https://github.com/npm/npm/releases/tag/v5.0.0</a></li>
+<li><code>package-lock.json</code> 공식문서 - <a href="https://docs.npmjs.com/files/package-lock.json" target="_blank" rel="noopener">https://docs.npmjs.com/files/package-lock.json</a></li>
+</ul>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+<div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+    </div>
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/23/package-lock-why-need/">package-lock.json은 왜 필요할까</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/hyunjun19">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:hyunjun19@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'hyunjun19-blog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>
