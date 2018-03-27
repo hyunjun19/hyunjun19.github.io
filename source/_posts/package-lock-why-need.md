@@ -107,6 +107,14 @@ tags: [npm, package.json, package-lock.json, dependency]
 2. ``package-lock.json`` 파일은 저장소에 꼭 같이 커밋해야 합니다.
 3. ``package-lock.json`` 파일은 ``node_modules`` 없이 배포하는 경우 반드시 필요합니다.
 
+
+## Troubleshooting
+
+- 아래 로그 처럼``integrity checksum failed`` 오류가 나는 경우 ``npm cache clean --force`` 실행
+```
+WARN registry Unexpected warning for https://registry.npmjs.org/: Miscellaneous Warning EINTEGRITY: sha1-w39Yfwo4PHAZ6CESDow/WPDSJ3I= integrity checksum failed when using sha1: wanted sha1-w39Yfwo4PHAZ6CESDow/WPDSJ3I= but got sha512-EhmUQodKB0sdzPPrbIWbGqA5cQeTWxYrAgNeeT1rLZWtD3tbNTnphz8J4vkXI3cPgBNlXBjzEbzDzq0Nwi4f9A==. (2896 bytes)
+```
+
 ## 참고자료
 
 - ``package.json``에서 사용되는 ``version range`` - https://github.com/npm/node-semver

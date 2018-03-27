@@ -143,7 +143,7 @@
                 <span class="date">2018-03-23</span>
             
             
-                <a href="#disqus_thread" class="comments">Kommentare</a>
+                <a href="#disqus_thread" class="comments">Comments</a>
             
             
         </div>
@@ -192,6 +192,10 @@
 <li><code>package-lock.json</code> 파일은 저장소에 꼭 같이 커밋해야 합니다.</li>
 <li><code>package-lock.json</code> 파일은 <code>node_modules</code> 없이 배포하는 경우 반드시 필요합니다.</li>
 </ol>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><ul>
+<li>아래 로그 처럼<code>integrity checksum failed</code> 오류가 나는 경우 <code>npm cache clean --force</code> 실행<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARN registry Unexpected warning for https://registry.npmjs.org/: Miscellaneous Warning EINTEGRITY: sha1-w39Yfwo4PHAZ6CESDow/WPDSJ3I= integrity checksum failed when using sha1: wanted sha1-w39Yfwo4PHAZ6CESDow/WPDSJ3I= but got sha512-EhmUQodKB0sdzPPrbIWbGqA5cQeTWxYrAgNeeT1rLZWtD3tbNTnphz8J4vkXI3cPgBNlXBjzEbzDzq0Nwi4f9A==. (2896 bytes)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h2 id="참고자료"><a href="#참고자료" class="headerlink" title="참고자료"></a>참고자료</h2><ul>
 <li><code>package.json</code>에서 사용되는 <code>version range</code> - <a href="https://github.com/npm/node-semver" target="_blank" rel="noopener">https://github.com/npm/node-semver</a></li>
 <li>npm 5 버전 릴리즈 노트 - <a href="https://github.com/npm/npm/releases/tag/v5.0.0" target="_blank" rel="noopener">https://github.com/npm/npm/releases/tag/v5.0.0</a></li>
