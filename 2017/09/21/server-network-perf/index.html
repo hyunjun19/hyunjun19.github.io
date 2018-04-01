@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--Description-->
     
@@ -24,45 +24,35 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
         <meta property="og:title" content="server-network-perf"/>
     
 
-    <!--Open Graph Description-->
-    
-
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="개발새발"/>
 
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
-
     <!--Page Cover-->
     
-
-    <meta name="twitter:card" content="summary" />
+        <meta property="og:image" content=""/>
     
 
     <!-- Title -->
     
     <title>server-network-perf - 개발새발</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/sass/main.css">
 
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 8]>
+        <script src="/js/ie/html5shiv.js"></script>
+    <![endif]-->
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 8]>
+        <link rel="stylesheet" href="/sass/ie8.css">
+    <![endif]-->
+
     <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <link rel="stylesheet" href="/sass/ie9.css">
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 
     <!-- Google Analytics -->
     
@@ -70,93 +60,73 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
 
 </head>
 
-
 <body>
 
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
+    <div id="wrapper">
 
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tags">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/categories">
-                    Categories
-                </a>
-            </li>
-            
-        </ul>
-    </div>
-</div>
+        <!-- Menu -->
+        <!-- Header -->
+<header id="header">
+    <div class="inner">
 
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
-</nav>
+        <!-- Logo -->
+        <a href="/" class="logo">
+            <span class="symbol"><img src="/images/logo.svg" alt="" /></span><span class="title">개발새발</span>
+        </a>
 
-<div class="container">
+        <!-- Nav -->
+        <nav>
+            <ul>
+                <li><a href="#menu">Menu</a></li>
+            </ul>
+        </nav>
 
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
-
-        <!--Title and Logo-->
-        <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-code" aria-hidden="true"></i></a>
-        
     </div>
 </header>
 
-        <section class="main">
-            
-<div class="post">
+<!-- Menu -->
+<nav id="menu">
+    <h2>Menu</h2>
+    <ul>
+        
+            <li>
+                <a href="/">Home</a>
+            </li>
+        
+            <li>
+                <a href="/archives">Archives</a>
+            </li>
+        
+            <li>
+                <a href="/tags">Tags</a>
+            </li>
+        
+            <li>
+                <a href="/categories">Categories</a>
+            </li>
+        
+    </ul>
+</nav>
 
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2017/09/21/server-network-perf/">
-                server-network-perf
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-09-21</span>
-            
-            
-                <a href="#disqus_thread" class="comments">Comments</a>
-            
-            
-        </div>
+
+        <div id="main">
+            <div class="inner">
+
+                <!-- Main Content -->
+                
+
+    <h1 class="title">server-network-perf</h1>
+    <div class="meta">
+        2017-09-21
     </div>
 
-    <div class="content">
 
-        <!-- Gallery -->
-        
 
-        <!-- Post Content -->
-        <h1 id="서버-네트워크-속도-대역폭-측정하기"><a href="#서버-네트워크-속도-대역폭-측정하기" class="headerlink" title="서버 네트워크 속도(대역폭) 측정하기"></a>서버 네트워크 속도(대역폭) 측정하기</h1><img src="/2017/09/21/server-network-perf/highway-393492_1920.jpg" title="우리는 항상 빠른 속도를 원한다.">
+<!-- Gallery -->
+
+
+<!-- Content -->
+<h1 id="서버-네트워크-속도-대역폭-측정하기"><a href="#서버-네트워크-속도-대역폭-측정하기" class="headerlink" title="서버 네트워크 속도(대역폭) 측정하기"></a>서버 네트워크 속도(대역폭) 측정하기</h1><img src="/2017/09/21/server-network-perf/highway-393492_1920.jpg" title="우리는 항상 빠른 속도를 원한다.">
 <p>AWS는 <a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">EC2 인스턴스 타입</a>별 네트워크 속도(대역폭)에 대한 정확한 수치를 공개하고 있지 않습니다.<br>아마도 자원을 공유하는 클라우드의 특성상 정확한 네트워크 속도를 보장하기 어렵기 때문이 아닌가 추측됩니다.<br><strong><strong><em>[2017-09-23] 정정합니다. <a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a>을 보면 대역폭이 나와있습니다. 하지만 T2 인스턴스는 해당 표에 없습니다.</em></strong></strong></p>
 <p>어쨌든 우리도 서버의 대략적인 네트워크 대역폭을 알아야 실수 없이 서버를 구성할 수 있으니 한 번 측정을 해보도록 하겠습니다.<br>측정 도구로는 <a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a>를 사용하도록 하겠습니다.</p>
 <h2 id="준비물"><a href="#준비물" class="headerlink" title="준비물"></a>준비물</h2><ol>
@@ -203,137 +173,90 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
 </ol>
 <h2 id="관련자료"><a href="#관련자료" class="headerlink" title="관련자료"></a>관련자료</h2><p><a href="https://iperf.fr/" target="_blank" rel="noopener">iperf</a><br><a href="https://aws.amazon.com/ko/ec2/instance-types/" target="_blank" rel="noopener">AWS ec2 인스턴스 타입</a><br><a href="http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-ec2-config.html" target="_blank" rel="noopener">AWS ec2 인스턴스 구성</a></p>
 
+
+<!-- Tags -->
+
+
+
+<div class="tags">
+    
+</div>
+
+
+
+<!-- Comments -->
+<div>
+    
+    <hr />
+    <h3>Kommentare:</h3>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 
-    
-
-    
-
-    <!-- Comments -->
-    
-    <div class="comments">
-        
-<div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-    </div>
-    
-
-</div>
-        </section>
-
-    </div>
-</div>
 
 
 </div>
 
-<!-- Footer -->
-<div class="push"></div>
 
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>.
-                </p>
+
             </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2018/03/23/package-lock-why-need/">package-lock.json은 왜 필요할까</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/03/09/github-fork-syncing/">포크한 깃허브 저장소를 원본 저장소와 동기화 </a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/02/19/node-js-at-scale-node-js-garbage-collection/">Node.js의 GC는 어떻게 동작하는가?</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/09/23/how-cookie-works/">how-cookie-works</a>
-            </li>
-            
+        </div>
+
+        <!-- Footer -->
+<footer id="footer">
+    <div class="inner">
+        <section>
+            <h2>About</h2>
+            <div>
+                This theme was initially developed by <a href="http://html5up.net" target="_blank">HTML5 UP</a>. It is adapted for Hexo by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a>.<br />The source code is available on <a href="https://github.com/klugjo/hexo-theme-phantom" target="_blank">GitHub</a>.
+            </div>
+        </section>
+        <section>
+            <h2>Follow</h2>
+            <ul class="icons">
+                
+                
+                
+                
+                
+                    <li><a href="https://github.com/hyunjun19" class="icon style2 fa-github" target="_blank" ><span class="label">GitHub</span></a></li>
+                
+                
+                
+                
+                
+                
+            </ul>
+        </section>
+        <ul class="copyright">
+            <li>&copy; Untitled. All rights reserved</li>
+            <li>Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a></li>
+            <li>Hexo: <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></li>
         </ul>
     </div>
-
-
-
-            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/hyunjun19">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:hyunjun19@gmail.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </footer>
+    </div>
 
-<!-- After footer scripts -->
-
+    <!-- After footer scripts -->
+    
 <!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+<!-- skel -->
+<script src="/js/skel.min.js"></script>
+
+<!-- Custom Code -->
+<script src="/js/util.js"></script>
+
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script>
+<![endif]-->
+
+<!-- Custom Code -->
+<script src="/js/main.js"></script>
 
 <!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
-<script src="/js/main.js"></script>
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 
 <!-- Disqus Comments -->
 
@@ -348,7 +271,6 @@ AWS는 EC2 인스턴스 타입별 네트워크 속도(대역폭)에 대한 정�
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
-
 
 
 </body>
